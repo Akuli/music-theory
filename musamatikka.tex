@@ -1,0 +1,222 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{fullpage}
+\usepackage{media9}
+\usepackage{attachfile}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Lause}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}{Seuraus}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{M\"a\"aritelm\"a}
+\newtheorem{example}[theorem]{Esimerkki}
+
+\newcommand{\tehtava}[1]{$$ $$\textbf{Tehtävä {#1}.}}
+\newcommand{\abs}[1]{\left|{#1}\right|}
+\newcommand{\normi}[1]{\left\|{#1}\right\|}
+\newcommand{\epsi}{\varepsilon}
+\newcommand{\st}[2]{\left({#1}\middle|{#2}\right)}
+\newcommand{\con}[1]{\overline{#1}}
+\newcommand{\cl}[1]{\overline{#1}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\T}{\operatorname{T}}
+\newcommand{\del}{\partial}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\pr}{\operatorname{pr}}
+\newcommand{\A}{\operatorname{A}}
+\newcommand{\B}{\operatorname{B}}
+\newcommand{\C}{\operatorname{C}}
+\newcommand{\D}{\operatorname{D}}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\F}{\operatorname{F}}
+\newcommand{\G}{\operatorname{G}}
+
+\newcounter{audiocounter}
+\newcommand{\audio}[1]{
+    \stepcounter{audiocounter}
+    % TODO: try caching the wavs in latex?
+    % I tried caching within the python script and it didn't speed up.
+    \input{| mkdir -p wavs && python3 make_audio.py '#1' -o wavs/\theaudiocounter.wav}
+}
+\newcommand{\Audio}[1]{\begin{center}\audio{#1}\end{center}}
+
+\begin{document}
+
+\section*{Intervallit}
+
+\begin{definition}
+\emph{Intervalli} tarkoittaa kahden eri äänenkorkeuden eroa.
+Tärkeimmät intervallit ovat
+\begin{itemize}
+\item \emph{oktaavi}: \audio{C4 C5}
+\item \emph{sävelaskel} eli \emph{kokosävelaskel} eli \emph{kokonainen sävelaskel}
+on seuraavien äänenten välinen intervalli: \audio{C4 D4}
+\item \emph{puolisävelaskel} eli \emph{puolikas sävelaskel} (puolet kokonaisesta sävelaskeleesta): \audio{C4 C#4}
+\end{itemize}
+\end{definition}
+
+Äänien kuuntelu klikkaamalla \textbf{ei toimi selaimessa}.
+Joudut luultavasti lataamaan äänitiedoston omalle koneelle.
+
+Oktaavi on jossakin mielessä sama ääni eri korkeudella.
+Tähän palataan myöhemmin.
+
+Huomaa, että sama intervalli löytyy usiden eri äänien välitä.
+Esimerkiksi nämä ovat oktaaveja:
+\Audio{E5 E6} \Audio{Ab3 Ab4}
+Nämä taas ovat kokonaisia sävelaskelia:
+\Audio{E5 F#5} \Audio{Ab3 Bb3}
+Seuraava lause on tärkeä, koska “taikaluku” 12 esiintyy jatkossa paljon.
+
+\begin{theorem}
+Yksi oktaavi on 12 puolikasta sävelaskelta.
+\end{theorem}
+\begin{proof}
+Kuunnellaan tämä ääni: \Audio{C4 D4 E4 F#4 G#4 A#4 C5 . C4 C5}
+Tässä on ensin seitsemän nousevan äänen jono.
+Näiden väleissä on 6 nousua, ja jokainen nousu on yhden sävelaskelen kokoinen.
+Lopuksi ensimmäinen ja viimeinen ääni soivat uudestaan, ja huomataan, että ne muodostavat oktaavin.
+Näin ollen oktaavi on 6 kokonaista sävelaskelta eli 12 puolikasta.
+\end{proof}
+
+TODO: selitä miksi oktaavi on jaettu juuri 12 osaan?
+
+Saman todistuksen voi tehdä puolikkailla sävelaskelilla,
+mutta tällöin on vaikeampi vakuuttua siitä,
+että jokainen nousu on tarkalleen puolisävelaskelen kokoinen:
+\Audio{C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4 C5 . C4 C5}
+
+Puolikkaista sävelaskeleista voidaan muodostaa muitakin intervalleja:
+\newpage
+\begin{itemize} \itemsep 0em
+\item 1 puolikas: \audio{C4 C#4}
+\item 2 puolikasta (1 kokonainen): \audio{C4 D4}
+\item 3 puolikasta: \audio{C4 D#4}
+\item 4 puolikasta: \audio{C4 E4}
+\item 5 puolikasta: \audio{C4 F4}
+\item 6 puolikasta: \audio{C4 F#4}
+\item 7 puolikasta: \audio{C4 G4}
+\item 8 puolikasta: \audio{C4 G#4}
+\item 9 puolikasta: \audio{C4 A4}
+\item 10 puolikasta: \audio{C4 A#4}
+\item 11 puolikasta: \audio{C4 B4}
+\item 12 puolikasta (oktaavi): \audio{C4 C5}
+\end{itemize}
+Näille on annettu nimet, mutta nimistä ei kannata välittää.
+Intervallien kuuleminen on paljon tärkeämpää, ja \textbf{sitä kannattaa harjoitella}.
+Voit vaikka klikata listasta silmät kiinni randomia ääntä
+ja yrittää arvata, kuinka monen puolikkaan intervalli on kyseessä.
+Tämän pitäisi onnistua helposti.
+
+
+\section*{Äänenkorkeudet kokonaislukuina}
+
+Länsimaisessa musiikissa kaikki äänet ovat lähes aina jonkin puolisävelaskelen monikerran päässä toisistaan.
+Tämä johtuu soittimista.
+Esimerkiksi kitarassa sormen liikuttaminen seuraavalle nauhalle muuttaa kielen ääntä puolisävelaskelen verran,
+ja pianon koskettimet ovat puolisävelaskelen välein, jos lasketaan mukaan mustat ja valkoiset koskettimet.
+Suuri osa musiikin teoriasta palautuu kokonaisluvuilla laskemiseksi, kun rajoitumme näihin äänenkorkeuksiin.
+\begin{definition}
+Merkitään intervalleja luonnollisina lukuina käyttäen yksikkönä puolisävelaskelta,
+eli luku $n \in \mathbb{N}$ vastaa $n$ puolikkaan sävelaskelen kokoista intervallia.
+Olkoon $a$ äänenkorkeus ja $n \in \mathbb{Z}$.
+Merkintä $a+n$ tarkoittaa sitä äänenkorkeutta, joka on $n$ puolikasta sävelaskelta ylempi kuin $b$.
+Negatiivinen $n$ tarkoittaa, että $a+n$ on matalampi ääni kuin $b$.
+\end{definition}
+
+Jos esimerkiksi $a$ on \audio{A4}, niin $a+3$ on \audio{C5}.
+Tässä siis ajatellaan intervalleja kokonaislukuna: äänten $a$ ja $b$ välinen intervalli on $3$ (puolisävelaskelta).
+\begin{example}
+Tässä on pätkä Ukko Nooaa. Selvitetään sen äänet ensimmäiseen ääneen verrattuna.
+\Audio{C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}
+Kuunnellaan ensin neljää ensimmäistä ääntä: \Audio{C4 C4 C4 E4}
+Olkoon $s$ ensimmäinen ääni. Se tulee kolme kertaa.
+Seuraava ääni on neljän puolikkaan päässä ensimmäisestä (vertaa yllä olevaan intervallilistaan),
+joten se on $s+4$.
+$$
+s,~ s,~ s,~ s+4
+$$
+Otetaan mukaan seuraava ääni, joka tulee kolmeen kertaan. \Audio{C4 C4 C4 E4 D4 D4 D4}
+Se on edellisten äänien puolessa välissä, siis $s+2$:
+$$
+s,~ s,~ s,~ s+4,~ s+2,~ s+2,~ s+2
+$$
+Näiden jälkeen tuleva ääni ei ole $s+6$ kuten voisi arvata,
+sillä sen kanssa Ukko Nooan alku kuulostaisi väärältä:
+\Audio{C4 C4 C4 E4 D4 D4 D4 F#4}
+Oikea ääni on $s+5$, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
+Ukko nooan äänet ovat siis:
+$$
+s,~ s,~ s,~ s+4,~ s+2,~ s+2,~ s+2,~ s+5,~ s+4,~ s+4,~ s+2,~ s+2,~ s.
+$$
+\end{example}
+Lukua $s$ sanotaan \emph{sävellajiksi}.
+Sävellajin määritteleminen täsmällisesti on vaikeaa.
+Sitä kannattaa ajatella äänenä, johon muiden äänien vertaaminen on luontevaa,
+ja se on yleensä ensimmäinen tai viimeinen ääni.
+Eri sävellajilla $s$ koko Ukko Nooa siirtyy saman verran ylöspäin tai alaspäin,
+vaikkapa näin:
+\Audio{F#4 F#4 F#4 A#4 G#4 G#4 G#4 B4 A#4 A#4 G#4 G#4 F#4}
+
+Äänenkorkeuksiakin voi ajatella kokonaislukuina,
+jos sovitaan, mitä tarkoittaa vaikkapa äänenkorkeus 0
+ja ilmaistaan muut äänenkorkeudet vertaamalla siihen.
+Näin päästään puhtaasti kokonaisluvuilla laskemiseen ja merkinnät lyhenevät.
+\begin{example}
+Jos sovitaan, että Ukko Nooan ensimmäinen ääni on nolla, niin kaikki äänet ovat
+$$
+0,0,0,4,2,2,2,5,4,4,2,2,0.
+$$
+\end{example}
+(Tämä näyttää nyt epäilyttävästi tiktokeilta,
+joissa näytetään selvästi feikkiä soittoa ja kasa randomeja numeroita.
+Ehkä tiktokeissa on alun perin yritetty tehdä jotain tämän kaltaista.)
+
+\begin{definition}
+Nimetään äänenkorkeudet näin:
+\begin{itemize}
+\item 440 Hz värähtelystä muodostuvan äänen korkeuden nimi on $A4$: \audio{A4}
+\item $B_4 = A_4 + 2$
+\item $C_5 = B_4 + 1$
+\item $D_5 = C_4 + 2$
+\item $E_5 = D_4 + 2$
+\item $F_5 = E_4 + 1$
+\item $G_5 = F_4 + 1$
+\item Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin.
+\item $\#$ nimessä tarkoittaa puolisävelaskelen verran korkeampaa ääntä.
+\item $b$ nimessä tarkoittaa puolisävelaskelen verran matalampaa ääntä.
+\end{itemize}
+\end{definition}
+Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis
+\begin{align*}
+&\vdots \\
+C_2,~C\#_2,~D_2,~D\#_2,~E_2,~F_2,~F\#_2,~G_2,~G\#_2,~A_2,~A\#_2,~B_2,~\\
+C_3,~C\#_3,~D_3,~D\#_3,~E_3,~F_3,~F\#_3,~G_3,~G\#_3,~A_3,~A\#_3,~B_3,~\\
+C_4,~C\#_4,~D_4,~D\#_4,~E_4,~F_4,~F\#_4,~G_4,~G\#_4,~A_4,~A\#_4,~B_4,~\\
+&\vdots
+\end{align*}
+tai ekvivalentisti
+\begin{align*}
+&\vdots \\
+\C2,~\D b2,~\D2,~\D2\#,~\E2,~\F2,~\F2\#,~\G2,~\G2\#,~\A2,~\A2\#,~\B2,~\\
+\C3,~\C3\#,~\D3,~\D3\#,~\E3,~\F3,~\F3\#,~\G3,~\G3\#,~\A3,~\A3\#,~\B3,~\\
+\C4,~\C4\#,~\D4,~\D4\#,~\E4,~\F4,~\F4\#,~\G4,~\G4\#,~\A4,~\A4\#,~\B4,~\\
+&\vdots
+\end{align*}
+
+
+\end{document}

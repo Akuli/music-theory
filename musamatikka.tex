@@ -63,8 +63,7 @@
 Tärkeimmät intervallit ovat
 \begin{itemize}
 \item \emph{oktaavi}: \audio{C4 C5}
-\item \emph{sävelaskel} eli \emph{kokosävelaskel} eli \emph{kokonainen sävelaskel}
-on seuraavien äänenten välinen intervalli: \audio{C4 D4}
+\item \emph{sävelaskel} eli \emph{kokosävelaskel} eli \emph{kokonainen sävelaskel}: \audio{C4 D4}
 \item \emph{puolisävelaskel} eli \emph{puolikas sävelaskel} (puolet kokonaisesta sävelaskeleesta): \audio{C4 C#4}
 \end{itemize}
 \end{definition}
@@ -101,7 +100,6 @@ että jokainen nousu on tarkalleen puolisävelaskelen kokoinen:
 \Audio{C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4 C5 . C4 C5}
 
 Puolikkaista sävelaskeleista voidaan muodostaa muitakin intervalleja:
-\newpage
 \begin{itemize} \itemsep 0em
 \item 1 puolikas: \audio{C4 C#4}
 \item 2 puolikasta (1 kokonainen): \audio{C4 D4}
@@ -134,12 +132,12 @@ Suuri osa musiikin teoriasta palautuu kokonaisluvuilla laskemiseksi, kun rajoitu
 Merkitään intervalleja luonnollisina lukuina käyttäen yksikkönä puolisävelaskelta,
 eli luku $n \in \mathbb{N}$ vastaa $n$ puolikkaan sävelaskelen kokoista intervallia.
 Olkoon $a$ äänenkorkeus ja $n \in \mathbb{Z}$.
-Merkintä $a+n$ tarkoittaa sitä äänenkorkeutta, joka on $n$ puolikasta sävelaskelta ylempi kuin $b$.
-Negatiivinen $n$ tarkoittaa, että $a+n$ on matalampi ääni kuin $b$.
+Merkintä $a+n$ tarkoittaa sitä äänenkorkeutta, joka on $n$ puolikasta sävelaskelta ylempi kuin $a$.
+Negatiivinen $n$ tarkoittaa, että $a+n$ on matalampi ääni kuin $a$.
 \end{definition}
 
 Jos esimerkiksi $a$ on \audio{A4}, niin $a+3$ on \audio{C5}.
-Tässä siis ajatellaan intervalleja kokonaislukuna: äänten $a$ ja $b$ välinen intervalli on $3$ (puolisävelaskelta).
+Tässä siis ajatellaan intervalleja kokonaislukuna: äänien $a$ ja $b$ välinen intervalli on $3$ (puolisävelaskelta).
 \begin{example}
 Tässä on pätkä Ukko Nooaa. Selvitetään sen äänet ensimmäiseen ääneen verrattuna.
 \Audio{C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}
@@ -164,7 +162,7 @@ $$
 s,~ s,~ s,~ s+4,~ s+2,~ s+2,~ s+2,~ s+5,~ s+4,~ s+4,~ s+2,~ s+2,~ s.
 $$
 \end{example}
-Lukua $s$ sanotaan \emph{sävellajiksi}.
+Äänenkorkeutta $s$ sanotaan \emph{sävellajiksi}.
 Sävellajin määritteleminen täsmällisesti on vaikeaa.
 Sitä kannattaa ajatella äänenä, johon muiden äänien vertaaminen on luontevaa,
 ja se on yleensä ensimmäinen tai viimeinen ääni.
@@ -181,42 +179,67 @@ Jos sovitaan, että Ukko Nooan ensimmäinen ääni on nolla, niin kaikki äänet
 $$
 0,0,0,4,2,2,2,5,4,4,2,2,0.
 $$
+Tämä näyttää nyt epäilyttävästi tiktokeilta,
+joissa on selvästi feikkiä soittoa ja kasa randomeja numeroita.
+Ehkä tiktokeissa yritettiin alun perin tehdä jotain tämän kaltaista.
+Kitaratabulatuureissakin on myös kyse tästä:
+siinä yhteydessä $0$ tarkoittaa alinta ääntä, joka kyseisestä kitaran kielestä lähtee.
 \end{example}
-(Tämä näyttää nyt epäilyttävästi tiktokeilta,
-joissa näytetään selvästi feikkiä soittoa ja kasa randomeja numeroita.
-Ehkä tiktokeissa on alun perin yritetty tehdä jotain tämän kaltaista.)
+
+
+\section*{Äänenkorkeuksien tavalliset nimet}
 
 \begin{definition}
 Nimetään äänenkorkeudet näin:
-\begin{itemize}
-\item 440 Hz värähtelystä muodostuvan äänen korkeuden nimi on $A4$: \audio{A4}
+\begin{itemize} \itemsep 0em
+\item 440 Hz värähtelystä muodostuvan äänenkorkeuden nimi on $A_4$: \audio{A4}
 \item $B_4 = A_4 + 2$
 \item $C_5 = B_4 + 1$
-\item $D_5 = C_4 + 2$
-\item $E_5 = D_4 + 2$
-\item $F_5 = E_4 + 1$
-\item $G_5 = F_4 + 1$
-\item Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin.
+\item $D_5 = C_5 + 2$
+\item $E_5 = D_5 + 2$
+\item $F_5 = E_5 + 1$
+\item $G_5 = F_5 + 2$
+\item Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin, eli $X_{n+1}=X_n+12$, missä $X$ on jokin kirjain välillä A-G.
 \item $\#$ nimessä tarkoittaa puolisävelaskelen verran korkeampaa ääntä.
 \item $b$ nimessä tarkoittaa puolisävelaskelen verran matalampaa ääntä.
+\item H tarkoittaa samaa kuin B, esimerkiksi $H_4 = B_4$.
 \end{itemize}
 \end{definition}
+
 Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis
 \begin{align*}
-&\vdots \\
-C_2,~C\#_2,~D_2,~D\#_2,~E_2,~F_2,~F\#_2,~G_2,~G\#_2,~A_2,~A\#_2,~B_2,~\\
-C_3,~C\#_3,~D_3,~D\#_3,~E_3,~F_3,~F\#_3,~G_3,~G\#_3,~A_3,~A\#_3,~B_3,~\\
-C_4,~C\#_4,~D_4,~D\#_4,~E_4,~F_4,~F\#_4,~G_4,~G\#_4,~A_4,~A\#_4,~B_4,~\\
-&\vdots
+&\quad\qquad\qquad\qquad\qquad\qquad\qquad\vdots \\
+&C_2,~C\#_2,~D_2,~D\#_2,~E_2,~F_2,~F\#_2,~G_2,~G\#_2,~A_2,~A\#_2,~B_2,~\\
+&C_3,~C\#_3,~D_3,~D\#_3,~E_3,~F_3,~F\#_3,~G_3,~G\#_3,~A_3,~A\#_3,~B_3,~\\
+&C_4,~C\#_4,~D_4,~D\#_4,~E_4,~F_4,~F\#_4,~G_4,~G\#_4,~A_4,~A\#_4,~B_4,~\\
+&C_5,~C\#_5,~D_5,~D\#_5,~E_5,~F_5,~F\#_5,~G_5,~G\#_5,~A_5,~A\#_5,~B_5,~\\
+&\quad\qquad\qquad\qquad\qquad\qquad\qquad\vdots
 \end{align*}
 tai ekvivalentisti
 \begin{align*}
-&\vdots \\
-\C2,~\D b2,~\D2,~\D2\#,~\E2,~\F2,~\F2\#,~\G2,~\G2\#,~\A2,~\A2\#,~\B2,~\\
-\C3,~\C3\#,~\D3,~\D3\#,~\E3,~\F3,~\F3\#,~\G3,~\G3\#,~\A3,~\A3\#,~\B3,~\\
-\C4,~\C4\#,~\D4,~\D4\#,~\E4,~\F4,~\F4\#,~\G4,~\G4\#,~\A4,~\A4\#,~\B4,~\\
-&\vdots
+&\qquad\qquad\qquad\qquad\qquad\qquad\vdots \\
+&C_2,~Db_2,~D_2,~Eb_2,~E_2,~F_2,~Gb_2,~G_2,~Ab_2,~A_2,~Bb_2,~B_2,~\\
+&C_3,~Db_3,~D_3,~Eb_3,~E_3,~F_3,~Gb_3,~G_3,~Ab_3,~A_3,~Bb_3,~B_3,~\\
+&C_4,~Db_4,~D_4,~Eb_4,~E_4,~F_4,~Gb_4,~G_4,~Ab_4,~A_4,~Bb_4,~B_4,~\\
+&C_5,~Db_5,~D_5,~Eb_5,~E_5,~F_5,~Gb_5,~G_5,~Ab_5,~A_5,~Bb_5,~B_5,~\\
+&\qquad\qquad\qquad\qquad\qquad\qquad\vdots
 \end{align*}
+Tässä nimeämisessä on taustalla duuriasteikot ja molliasteikot, jotka määritellään myöhemmin.
+Käytännössä äänien nimeäminen näin on usein juuri niin kökköä kuin voisi arvata.
+Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
+
+\begin{example}
+Tässä on Ukko Nooa, jonka ensimmäinen ääni on $D_4$. \audio{D4 D4 D4 F#4 E4 E4 E4 G4 F#4 F#4 E4 E4 D4} Sen äänet ovat
+$$
+D_4,D_4,D_4,F\#_4,E_4,E_4,E_4,G_4,F\#_4,F\#_4,E_4,E_4,D_4.
+$$
+Tässä Ukko Nooassa ensimmäinen ääni on $G_4$. \audio{G4 G4 G4 B4 A4 A4 A4 C5 B4 B4 A4 A4 G4} Kaikki äänet ovat
+$$
+G_4,G_4,G_4,B_4,A_4,A_4,A_4,C_5,B_4,B_4,A_4,A_4,G_4.
+$$
+Huomaa keskellä oleva $C_5$. Se ei ole $C_4$, koska $C_4$ olisi kaukana muista äänistä, oktaavin liian matala.
+\end{example}
+
 
 
 \end{document}

@@ -285,3 +285,59 @@ example:
 
     center:
         [C] [C] [C] [E] [D] [D] [D] [F] [E] [E] [D] [D] [C].
+
+
+## Duuriasteikko ja molliasteikko
+
+definition:
+    Olkoon $j \in \mathbb{Z}_{12}$ jäännösluokka. Tällöin **$j$-duuriasteikko** on joukko
+    $$
+    j\duuri = \{ j, j+2, j+4, j+5, j+7, j+9, j+11 \}
+    $$
+    ja **$j$-molliasteikko** on
+    $$
+    j\molli = \{ j, j+2, j+3, j+5, j+7, j+8, j+10 \}.
+    $$
+
+example:
+    C-duuriasteikko on
+
+    center:
+        $C\duuri = \{$ [C], [D], [E], [F], [G], [A], [B] $\}$,
+
+    ja C-molliasteikko on
+
+    center:
+        $C\molli = \{$ [C], [D], [Eb], [F], [G], [Ab], [Bb] $\}$.
+
+Tässä duuriasteikon muodostamiseen tarvittiin alennuksia ja molliasteikkoon ei tarvittu.
+Näin ei välttämättä ole. Seuraavassa esimerkissä nämä menevät juurikin päinvastoin.
+
+example:
+    center:
+        $A\duuri = \{$ [A], [B], [C#], [D], [E], [F#], [G#] $\}$
+
+    ja
+
+    center:
+        $A\molli = \{$ [A], [B], [C], [D], [E], [F], [G] $\}$.
+
+Ehkä äänten nimeäminen tuntuu nyt vähän järkevämmältä:
+A-molliasteikko on kivasti aakkosjärjestyksessä (paitsi jos B:tä merkitäänkin H:lla).
+
+theorem:
+    Kaikilla $j \in \mathbb{Z}_{12}$ pätee $$j\duuri = (j-3)\molli.$$
+
+    proof:
+        $$
+        \begin{align}
+        j\duuri &= \{ j, j+2, j+4, j+5, j+7, \underbrace{j+9}_{=j-3}, \underbrace{j+11}_{=j-1} \} \\
+        &= \{ j-3, j-1, j, j+2, j+4, j+5, j+7 \} \\
+        &= \{ j-3, j-3+2, j-3+3, j-3+5, j-3+7, j-3+8, j-3+10 \} \\
+        &= (j-3)\molli
+        \end{align}
+        $$
+
+Esimerkiksi C-duurissa on samat äänet kuin A-mollissa.
+Ne ovat eri järjestyksessä, mutta se ei haittaa, koska kyseessä on joukkojen yhtäsuuruus
+ja joukoissa järjestyksellä ei ole merkitystä.

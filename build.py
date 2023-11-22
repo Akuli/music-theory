@@ -9,7 +9,7 @@ builder.infiles = ['content.txt']
 builder.infile2outfile = lambda infile: "html/index.html"
 builder.additional_files = []
 
-mathjax_config = '''
+mathjax_config = r'''
     MathJax = {
         tex: {
             inlineMath: [ ['$','$'] ],
@@ -17,6 +17,8 @@ mathjax_config = '''
             macros: {
                 abs: [ "\\left| {#1} \\right|", 1 ],
                 epsi: '\\varepsilon',
+                duuri: '\\text{-duuri}',
+                molli: '\\text{-molli}',
             }
         }
     };

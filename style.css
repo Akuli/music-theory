@@ -45,3 +45,31 @@ p, li, #sidebar {
     font-size: 1em;
     line-height: 140%;
 }
+
+div.clock {
+    position: relative;
+    width: 20em;
+    height: 20em;
+}
+div.clock > button {
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);  /* "left" and "right" are actually coordinates of center */
+}
+div.clock > button:nth-child(1) { left: calc(10em + 9em*sin(0deg)); top: calc(10em - 9em*cos(0deg)); }
+div.clock > button:nth-child(2) { left: calc(10em + 9em*sin(30deg)); top: calc(10em - 9em*cos(30deg)); }
+div.clock > button:nth-child(3) { left: calc(10em + 9em*sin(60deg)); top: calc(10em - 9em*cos(60deg)); }
+div.clock > button:nth-child(4) { left: calc(10em + 9em*sin(90deg)); top: calc(10em - 9em*cos(90deg)); }
+div.clock > button:nth-child(5) { left: calc(10em + 9em*sin(120deg)); top: calc(10em - 9em*cos(120deg)); }
+div.clock > button:nth-child(6) { left: calc(10em + 9em*sin(150deg)); top: calc(10em - 9em*cos(150deg)); }
+div.clock > button:nth-child(7) { left: calc(10em + 9em*sin(180deg)); top: calc(10em - 9em*cos(180deg)); }
+div.clock > button:nth-child(8) { left: calc(10em + 9em*sin(210deg)); top: calc(10em - 9em*cos(210deg)); }
+div.clock > button:nth-child(9) { left: calc(10em + 9em*sin(240deg)); top: calc(10em - 9em*cos(240deg)); }
+div.clock > button:nth-child(10) { left: calc(10em + 9em*sin(270deg)); top: calc(10em - 9em*cos(270deg)); }
+div.clock > button:nth-child(11) { left: calc(10em + 9em*sin(300deg)); top: calc(10em - 9em*cos(300deg)); }
+div.clock > button:nth-child(12) { left: calc(10em + 9em*sin(330deg)); top: calc(10em - 9em*cos(330deg)); }
+
+div.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

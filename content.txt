@@ -150,29 +150,31 @@ definition:
 
 Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis:
 
-python:
-    yield '<div style="display: grid; justify-items: center; width: fit-content; margin-left:auto; margin-right:auto">'
-    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-    for n in (2, 3, 4, 5):
-        for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
-            yield f'<span style="grid-column: {x}; grid-row: {n}">'
-            yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
-            yield '</span>'
-    yield '</div>'
+center:
+    python:
+        yield '<div style="display: grid; justify-items: center; width: fit-content">'
+        yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+        yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+        for n in (2, 3, 4, 5):
+            for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
+                yield f'<span style="grid-column: {x}; grid-row: {n}">'
+                yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
+                yield '</span>'
+        yield '</div>'
 
 tai ekvivalentisti:
 
-python:
-    yield '<div style="display: grid; justify-items: center; width: fit-content; margin-left:auto; margin-right:auto">'
-    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-    for n in (2, 3, 4, 5):
-        for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
-            yield f'<span style="grid-column: {x}; grid-row: {n}">'
-            yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
-            yield '</span>'
-    yield '</div>'
+center:
+    python:
+        yield '<div style="display: grid; justify-items: center; width: fit-content">'
+        yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+        yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+        for n in (2, 3, 4, 5):
+            for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
+                yield f'<span style="grid-column: {x}; grid-row: {n}">'
+                yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
+                yield '</span>'
+        yield '</div>'
 
 Jokaisella oktaavilla (rivillä) tarvittiin alennusta tai ylennystä viiteen ääneen,
 ja loput 7 ilmaistiin pelkällä kirjaimella ja numerolla.
@@ -257,4 +259,18 @@ Koska kellotaulussa on 12 numeroa,
 niin jäännösluokat voi visualisoida piirtämällä ne kellotaulun ympärille.
 Laitetaan vaikkapa $A$ kahteentoista, $A\#$ ykköseen jne:
 
-TODO: hieno html nappiviritys missä kellotaulun numeroita voi kliksutella
+center:
+    <div class="clock">
+        [A]
+        [A# $A\#$<br>$Bb$]
+        [B]
+        [C]
+        [C# $C\#$<br>$Db$]
+        [D]
+        [D# $D\#$<br>$Eb$]
+        [E]
+        [F]
+        [F# $F\#$<br>$Gb$]
+        [G]
+        [G# $G\#$<br>$Ab$]
+    </div>

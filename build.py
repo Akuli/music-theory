@@ -45,9 +45,10 @@ def audio_handler(match, filename):
 
 
 # [C4] creates a button that displays C4 and also plays C4
-@builder.converter.add_inliner(r'\[([A-H])([#b]?)(-?\d+)?\]')
+# [C4 foo bar] is the same, but button text becomes "foo bar" instead of "C4"
+@builder.converter.add_inliner(r'\[([A-H])([#b]?)(-?\d+)?( [^\[\]\n]+)?\]')
 def single_note_handler(match, filename):
-    letter, sharp_or_flat, number = match.groups()
+    letter, sharp_or_flat, number, button_text = match.groups()
     note_string = letter + sharp_or_flat
 
     if number is None:
@@ -59,12 +60,14 @@ def single_note_handler(match, filename):
     else:
         note_string += number
 
-    mathjax_note_string = letter + sharp_or_flat.replace('#', r'\#')
-    if number is not None:
-        mathjax_note_string += '_'
-        mathjax_note_string += '{' + number + '}'
+    if button_text is None:
+        mathjax_note_string = letter + sharp_or_flat.replace('#', r'\#')
+        if number is not None:
+            mathjax_note_string += '_'
+            mathjax_note_string += '{' + number + '}'
+        button_text = '$' + mathjax_note_string + '$'
 
-    return f'''<button onclick="playNotes('{note_string}')">${mathjax_note_string}$</button>'''
+    return f'''<button onclick="playNotes('{note_string}')">{button_text.strip()}</button>'''
 
 
 @builder.converter.add_multiliner(r'^python:\n')
@@ -77,7 +80,7 @@ def python_handler(match, filename):
 @builder.converter.add_multiliner(r'^center:\n')
 def center_handler(match, filename):
     content = textwrap.dedent(match.string[match.end():])
-    yield '<div style="margin-left:auto; margin-right:auto; text-align:center">'
+    yield '<div class="center">'
     yield from builder.converter.convert(content, filename)
     yield '</div>'
 

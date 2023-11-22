@@ -20,7 +20,7 @@ definition:
 Oktaavi on jossakin mielessä sama ääni eri korkeudella.
 Tähän palataan myöhemmin.
 
-Huomaa, että sama intervalli löytyy usiden eri äänien välitä.
+Huomaa, että sama intervalli löytyy useiden eri äänien välistä.
 Esimerkiksi nämä ovat oktaaveja: {E6 E7} {Ab4 Ab5}
 Nämä taas ovat kokonaisia sävelaskelia: {E6 F#6} {Ab4 Bb4}
 

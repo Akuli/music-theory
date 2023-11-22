@@ -25,6 +25,7 @@ mathjax_config = r'''
 '''
 
 builder.get_head_extras = lambda filename: rf"""
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Cabin|Quicksand" rel="stylesheet">
     <style>{Path('style.css').read_text()}</style>
     <script>{Path('playNotes.js').read_text()}</script>

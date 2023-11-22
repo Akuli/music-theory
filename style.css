@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    margin: 10px 10px 10px 10px;
+    margin: 0.5em;
 }
 
 .headerlink {
@@ -12,8 +12,7 @@ body {
 }
 
 #content {
-    padding: 10px;
-    max-width: 50em;
+    padding: 0.5em;
 }
 
 a {
@@ -28,8 +27,9 @@ a:hover {
 }
 
 .box {
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 0.5em;
+    padding: 1em;
+    margin: 0.3em;
 }
 .definition { background-color: #1c1c1c; }
 .theorem { background-color: #110fbd; }
@@ -42,7 +42,6 @@ h1, h2, h3, h4, h5, h6 {
 
 p, li, #sidebar {
     font-family: Cabin;
-    font-size: 1em;
     line-height: 140%;
 }
 

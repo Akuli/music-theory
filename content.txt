@@ -162,7 +162,7 @@ Kaikki äänenkorkeudet puolisävelaskelen välein ovat:
 python:
     yield '<div class="all-notes-table">'
     yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 7; grid-column: 1 / span 12">$\vdots$</span>'
     for y, note_number in enumerate((3, 4, 5, 6, 7), start=2):
         for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
             yield f'<span style="grid-column: {x}; grid-row: {y}">'
@@ -175,7 +175,7 @@ tai ekvivalentisti:
 python:
     yield '<div class="all-notes-table">'
     yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 7; grid-column: 1 / span 12">$\vdots$</span>'
     for y, note_number in enumerate((3, 4, 5, 6, 7), start=2):
         for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
             yield f'<span style="grid-column: {x}; grid-row: {y}">'

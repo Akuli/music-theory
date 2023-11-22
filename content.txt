@@ -159,31 +159,29 @@ definition:
 
 Kaikki äänenkorkeudet puolisävelaskelen välein ovat:
 
-center:
-    python:
-        yield '<div style="display: grid; justify-items: center; width: fit-content">'
-        yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-        yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-        for n in (2, 3, 4, 5):
-            for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
-                yield f'<span style="grid-column: {x}; grid-row: {n}">'
-                yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
-                yield '</span>'
-        yield '</div>'
+python:
+    yield '<div class="all-notes-table">'
+    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    for y, note_number in enumerate((2, 3, 4, 5), start=2):
+        for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
+            yield f'<span style="grid-column: {x}; grid-row: {y}">'
+            yield from builder.converter.convert_chunk('[' + note + str(note_number) + ']', filename)
+            yield '</span>'
+    yield '</div>'
 
 tai ekvivalentisti:
 
-center:
-    python:
-        yield '<div style="display: grid; justify-items: center; width: fit-content">'
-        yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
-        yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-        for n in (2, 3, 4, 5):
-            for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
-                yield f'<span style="grid-column: {x}; grid-row: {n}">'
-                yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
-                yield '</span>'
-        yield '</div>'
+python:
+    yield '<div class="all-notes-table">'
+    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    for y, note_number in enumerate((2, 3, 4, 5), start=2):
+        for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
+            yield f'<span style="grid-column: {x}; grid-row: {y}">'
+            yield from builder.converter.convert_chunk('[' + note + str(note_number) + ']', filename)
+            yield '</span>'
+    yield '</div>'
 
 Jokaisella oktaavilla (rivillä) tarvittiin alennusta tai ylennystä viiteen ääneen,
 ja loput 7 ilmaistiin pelkällä kirjaimella ja numerolla.
@@ -228,7 +226,7 @@ definition:
     eli sellaisten äänien joukko, joiden etäisyys ääneen $k$ on jokin kokonaislukumäärä oktaaveja.
     Merkitään jäännösluokkia samoin kuin ääniä mutta pelkillä kirjaimilla, eli esimerkiksi
     $$
-    C = \overline{C_n} = \{ \dots, C_{-2}, C_{-1}, C_0, C_1, C_2, C_3, \dots \}.
+    C = \overline{C_n} = \{ \dots, C_{-1}, C_0, C_1, C_2, \dots \}.
     $$
     Määritellään jäännösluokan $k$ ja kokonaisluvun $n$ yhteenlasku
     $$
@@ -333,7 +331,8 @@ theorem:
         \begin{align}
         j\duuri &= \{ j, j+2, j+4, j+5, j+7, \underbrace{j+9}_{=j-3}, \underbrace{j+11}_{=j-1} \} \\
         &= \{ j-3, j-1, j, j+2, j+4, j+5, j+7 \} \\
-        &= \{ j-3, j-3+2, j-3+3, j-3+5, j-3+7, j-3+8, j-3+10 \} \\
+        &= \{ j-3, j-3+2, j-3+3, j-3+5, \\
+        &\qquad\quad j-3+7, j-3+8, j-3+10 \} \\
         &= (j-3)\molli
         \end{align}
         $$

@@ -72,3 +72,11 @@ div.center {
     flex-direction: column;
     align-items: center;
 }
+
+div.all-notes-table {
+    display: grid;
+    justify-items: center;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}

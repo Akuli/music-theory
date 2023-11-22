@@ -72,7 +72,7 @@ definition:
     ja $k-1$ puolisävelaskelen verran matalampaa ääntä.
 
 Jos siis esimerkiksi ääntä {A4} vastaa luku 15, niin ääni {C5} on 18.
-Tässä intervallit ovat positiivisia kokonaislukuna: äänien 15 ja 18 välinen intervalli on 3.
+Tässä intervallit ovat positiivisia kokonaislukuja: äänien 15 ja 18 välinen intervalli on 3.
 
 example:
     Tässä on pätkä Ukko Nooaa. {C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}

@@ -52,16 +52,7 @@ def audio_handler(match, filename):
 @builder.converter.add_inliner(r'\[([A-H])([#b]?)(-?\d+)?( [^\[\]\n]+)?\]')
 def single_note_handler(match, filename):
     letter, sharp_or_flat, number, button_text = match.groups()
-    note_string = letter + sharp_or_flat
-
-    if number is None:
-        # TODO: create some kind of "play simultaneously at all octaves" thing
-        if letter == 'A' or letter == 'B':
-            note_string += "4"
-        else:
-            note_string += "5"
-    else:
-        note_string += number
+    note_string = letter + sharp_or_flat + (number or "")
 
     if button_text is None:
         mathjax_note_string = letter + sharp_or_flat.replace('#', r'\#')

@@ -5,6 +5,7 @@
 <title>Musiikkiteoriaa matemaatikoille
 </title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Cabin|Quicksand" rel="stylesheet">
     <style>html {
     color: white;
@@ -12,7 +13,7 @@
 }
 
 body {
-    margin: 10px 10px 10px 10px;
+    margin: 0.5em;
 }
 
 .headerlink {
@@ -20,8 +21,7 @@ body {
 }
 
 #content {
-    padding: 10px;
-    max-width: 50em;
+    padding: 0.5em;
 }
 
 a {
@@ -36,8 +36,9 @@ a:hover {
 }
 
 .box {
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 0.5em;
+    padding: 1em;
+    margin: 0.3em;
 }
 .definition { background-color: #1c1c1c; }
 .theorem { background-color: #110fbd; }
@@ -50,7 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 
 p, li, #sidebar {
     font-family: Cabin;
-    font-size: 1em;
     line-height: 140%;
 }
 
@@ -149,8 +149,10 @@ function playNotes(noteString) {
             inlineMath: [ ['$','$'] ],
             displayMath: [ ['$$','$$'] ],
             macros: {
-                abs: [ "\left| {#1} \right|", 1 ],
-                epsi: '\varepsilon',
+                abs: [ "\\left| {#1} \\right|", 1 ],
+                epsi: '\\varepsilon',
+                duuri: '\\text{-duuri}',
+                molli: '\\text{-molli}',
             }
         }
     };
@@ -380,6 +382,57 @@ Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan</p>
 <div class="center"><p><button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('F4')">$F$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('C4')">$C$</button>.
 </p>
 
-</div></div></div>
+</div></div><h2 id="duuriasteikko-ja-molliasteikko">Duuriasteikko ja molliasteikko<a class="headerlink" href="#duuriasteikko-ja-molliasteikko" title="Link to this title">¶</a></h2><div class="box definition"><h4>Määritelmä</h4><p>Olkoon $j \in \mathbb{Z}_{12}$ jäännösluokka. Tällöin <b>$j$-duuriasteikko</b> on joukko
+$$
+j\duuri = \{ j, j+2, j+4, j+5, j+7, j+9, j+11 \}
+$$
+ja <b>$j$-molliasteikko</b> on
+$$
+j\molli = \{ j, j+2, j+3, j+5, j+7, j+8, j+10 \}.
+$$
+</p>
+
+</div><div class="box example"><h4>Esimerkki</h4><p>C-duuriasteikko on</p>
+
+<div class="center"><p>$C\duuri = \{$ <button onclick="playNotes('C4')">$C$</button>, <button onclick="playNotes('D4')">$D$</button>, <button onclick="playNotes('E4')">$E$</button>, <button onclick="playNotes('F4')">$F$</button>, <button onclick="playNotes('G4')">$G$</button>, <button onclick="playNotes('A3')">$A$</button>, <button onclick="playNotes('B3')">$B$</button> $\}$,
+</p>
+
+</div><p>ja C-molliasteikko on</p>
+
+<div class="center"><p>$C\molli = \{$ <button onclick="playNotes('C4')">$C$</button>, <button onclick="playNotes('D4')">$D$</button>, <button onclick="playNotes('Eb4')">$Eb$</button>, <button onclick="playNotes('F4')">$F$</button>, <button onclick="playNotes('G4')">$G$</button>, <button onclick="playNotes('Ab3')">$Ab$</button>, <button onclick="playNotes('Bb3')">$Bb$</button> $\}$.
+</p>
+
+</div></div><p>Tässä duuriasteikon muodostamiseen tarvittiin alennuksia ja molliasteikkoon ei tarvittu.
+Näin ei välttämättä ole. Seuraavassa esimerkissä nämä menevät juurikin päinvastoin.</p>
+
+<div class="box example"><h4>Esimerkki</h4><div class="center"><p>$A\duuri = \{$ <button onclick="playNotes('A3')">$A$</button>, <button onclick="playNotes('B3')">$B$</button>, <button onclick="playNotes('C#4')">$C\#$</button>, <button onclick="playNotes('D4')">$D$</button>, <button onclick="playNotes('E4')">$E$</button>, <button onclick="playNotes('F#4')">$F\#$</button>, <button onclick="playNotes('G#4')">$G\#$</button> $\}$
+</p>
+
+</div><p>ja</p>
+
+<div class="center"><p>$A\molli = \{$ <button onclick="playNotes('A3')">$A$</button>, <button onclick="playNotes('B3')">$B$</button>, <button onclick="playNotes('C4')">$C$</button>, <button onclick="playNotes('D4')">$D$</button>, <button onclick="playNotes('E4')">$E$</button>, <button onclick="playNotes('F4')">$F$</button>, <button onclick="playNotes('G4')">$G$</button> $\}$.
+</p>
+
+</div></div><p>Ehkä äänten nimeäminen tuntuu nyt vähän järkevämmältä:
+A-molliasteikko on kivasti aakkosjärjestyksessä (paitsi jos B:tä merkitäänkin H:lla).</p>
+
+<div class="box theorem"><h4>Lause</h4><p>Kaikilla $j \in \mathbb{Z}_{12}$ pätee $$j\duuri = (j-3)\molli.$$</p>
+
+<div class="box proof"><h4>Todistus</h4><p>$$
+\begin{align}
+j\duuri &= \{ j, j+2, j+4, j+5, j+7, \underbrace{j+9}_{=j-3}, \underbrace{j+11}_{=j-1} \} \\
+&= \{ j-3, j-1, j, j+2, j+4, j+5, j+7 \} \\
+&= \{ j-3, j-3+2, j-3+3, j-3+5, j-3+7, j-3+8, j-3+10 \} \\
+&= (j-3)\molli
+\end{align}
+$$
+</p>
+
+</div></div><p>Esimerkiksi C-duurissa on samat äänet kuin A-mollissa.
+Ne ovat eri järjestyksessä, mutta se ei haittaa, koska kyseessä on joukkojen yhtäsuuruus
+ja joukoissa järjestyksellä ei ole merkitystä.
+</p>
+
+</div>
 </body>
 </html>

@@ -1,3 +1,12 @@
+# Musiikkiteoriaa matemaatikoille
+
+(This page is in Finnish. Please [create an issue on GitHub](https://github.com/Akuli/music-theory) if you want an English version.)
+
+Selitetään musiikin teorian oleellisimmat käsitteet ja tulokset matematiikan kielellä.
+Äänenkorkeuksien, intervallien, sointujen jne käsittely on matemaattisesti yllättävän helppoa.
+Teoria palautuu kokonaisluvuilla ja jäännösluokilla laskemiseen, kunhan käsitteet määritellään sopivasti.
+
+
 ## Intervallit
 
 definition:

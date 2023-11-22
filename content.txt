@@ -249,21 +249,6 @@ ja kun jäännösluokka tiedetään, niin sopiva äänenkorkeus löytyy helposti
 Esimerkiksi kitaristeille on parempi sanoa "soita G-duuri" kuin "soita G4-duuri".
 Duurisoinnut määritellään myöhemmin.
 
-example:
-    Olkoon $s \in \mathbb{Z}_{12}$ Ukko Nooan ensimmäistä ääntä vastaava jäännösluokka.
-    Tällöin kaikki äänet ovat
-    $$
-    \begin{align}
-    &s,~ s,~ s,~ s+4, \\
-    & s+2,~ s+2,~ s+2,~ s+5, \\
-    &s+4,~ s+4,~ s+2,~ s+2,~ s.
-    \end{align}
-    $$
-    Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan
-
-    center:
-        [C] [C] [C] [E] [D] [D] [D] [F] [E] [E] [D] [D] [C].
-
 Koska kellotaulussa on 12 numeroa,
 niin jäännösluokat voi visualisoida piirtämällä ne kellotaulun ympärille.
 Laitetaan vaikkapa $A$ kahteentoista, $A\#$ ykköseen jne:
@@ -283,3 +268,20 @@ center:
         [G]
         [G# $G\#$<br>$Ab$]
     </div>
+
+Tätä kuvaa seuraamalla on helppo päätellä äänten nimet.
+
+example:
+    Olkoon $s \in \mathbb{Z}_{12}$ Ukko Nooan ensimmäistä ääntä vastaava jäännösluokka.
+    Tällöin kaikki äänet ovat
+    $$
+    \begin{align}
+    &s,~ s,~ s,~ s+4, \\
+    & s+2,~ s+2,~ s+2,~ s+5, \\
+    &s+4,~ s+4,~ s+2,~ s+2,~ s.
+    \end{align}
+    $$
+    Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan
+
+    center:
+        [C] [C] [C] [E] [D] [D] [D] [F] [E] [E] [D] [D] [C].

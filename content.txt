@@ -13,16 +13,16 @@ definition:
     **Intervalli** tarkoittaa kahden eri äänenkorkeuden eroa.
     Tärkeimmät intervallit ovat
 
-    * **oktaavi**: {C4 C5}
-    * **sävelaskel** eli **kokosävelaskel** eli **kokonainen sävelaskel**: {C4 D4}
-    * **puolisävelaskel** eli **puolikas sävelaskel** (puolet kokonaisesta sävelaskeleesta): {C4 C#4}
+    * **oktaavi**: {C5 C6}
+    * **sävelaskel** eli **kokosävelaskel** eli **kokonainen sävelaskel**: {C5 D5}
+    * **puolisävelaskel** eli **puolikas sävelaskel** (puolet kokonaisesta sävelaskeleesta): {C5 C#5}
 
 Oktaavi on jossakin mielessä sama ääni eri korkeudella.
 Tähän palataan myöhemmin.
 
 Huomaa, että sama intervalli löytyy usiden eri äänien välitä.
-Esimerkiksi nämä ovat oktaaveja: {E5 E6} {Ab3 Ab4}
-Nämä taas ovat kokonaisia sävelaskelia: {E5 F#5} {Ab3 Bb3}
+Esimerkiksi nämä ovat oktaaveja: {E6 E7} {Ab4 Ab5}
+Nämä taas ovat kokonaisia sävelaskelia: {E6 F#6} {Ab4 Bb4}
 
 Seuraava lause on tärkeä, koska “taikaluku” 12 esiintyy jatkossa paljon.
 
@@ -30,7 +30,7 @@ theorem:
     Yksi oktaavi on 12 puolikasta sävelaskelta.
 
     proof:
-        Kuunnellaan tämä: {C4 D4 E4 F#4 G#4 A#4 C5 . C4 C5}
+        Kuunnellaan tämä: {C5 D5 E5 F#5 G#5 A#5 C6 . C5 C6}
         Tässä on ensin seitsemän nousevan äänen jono.
         Näiden väleissä on 6 nousua, ja jokainen nousu on yhden sävelaskelen kokoinen.
         Lopuksi ensimmäinen ja viimeinen ääni soivat uudestaan, ja huomataan, että ne muodostavat oktaavin.
@@ -41,22 +41,22 @@ TODO: selitä miksi oktaavi on jaettu juuri 12 osaan?
 Saman todistuksen voi tehdä puolikkailla sävelaskelilla,
 mutta tällöin on vaikeampi vakuuttua siitä,
 että jokainen nousu on tarkalleen puolisävelaskelen kokoinen:
-{C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4 C5 . C4 C5}
+{C5 C#5 D5 D#5 E5 F5 F#5 G5 G#5 A5 A#5 B5 C6 . C5 C6}
 
 Puolikkaista sävelaskeleista voidaan muodostaa muitakin intervalleja:
 
-* 1 puolikas: {C4 C#4}
-* 2 puolikasta (1 kokonainen): {C4 D4}
-* 3 puolikasta: {C4 D#4}
-* 4 puolikasta: {C4 E4}
-* 5 puolikasta: {C4 F4}
-* 6 puolikasta: {C4 F#4}
-* 7 puolikasta: {C4 G4}
-* 8 puolikasta: {C4 G#4}
-* 9 puolikasta: {C4 A4}
-* 10 puolikasta: {C4 A#4}
-* 11 puolikasta: {C4 B4}
-* 12 puolikasta (oktaavi): {C4 C5}
+* 1 puolikas: {C5 C#5}
+* 2 puolikasta (1 kokonainen): {C5 D5}
+* 3 puolikasta: {C5 D#5}
+* 4 puolikasta: {C5 E5}
+* 5 puolikasta: {C5 F5}
+* 6 puolikasta: {C5 F#5}
+* 7 puolikasta: {C5 G5}
+* 8 puolikasta: {C5 G#5}
+* 9 puolikasta: {C5 A5}
+* 10 puolikasta: {C5 A#5}
+* 11 puolikasta: {C5 B5}
+* 12 puolikasta (oktaavi): {C5 C6}
 
 Näille on annettu nimet, mutta nimistä ei kannata välittää.
 Intervallien kuuleminen on paljon tärkeämpää, ja **sitä kannattaa harjoitella**.
@@ -80,21 +80,21 @@ definition:
     niin $k+1$ vastaa puolikkaan sävelaskelen verran korkeampaa ääntä
     ja $k-1$ puolisävelaskelen verran matalampaa ääntä.
 
-Jos siis esimerkiksi ääntä {A4} vastaa luku 15, niin ääni {C5} on 18.
+Jos siis esimerkiksi ääntä {Gb5} vastaa luku 15, niin ääni {A5} on 18.
 Tässä intervallit ovat positiivisia kokonaislukuja: äänien 15 ja 18 välinen intervalli on 3.
 
 example:
-    Tässä on pätkä Ukko Nooaa. {C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}
+    Tässä on pätkä Ukko Nooaa. {C5 C5 C5 E5 D5 D5 D5 F5 E5 E5 D5 D5 C5}
     Selvitetään sen äänet ensimmäiseen ääneen verrattuna.
 
-    Kuunnellaan ensin neljää ensimmäistä ääntä. {C4 C4 C4 E4}
+    Kuunnellaan ensin neljää ensimmäistä ääntä. {C5 C5 C5 E5}
     Olkoon $s \in \mathbb{Z}$ ensimmäinen ääni. Se tulee kolme kertaa.
     Seuraava ääni on neljän puolikkaan päässä ensimmäisestä (vertaa yllä olevaan intervallilistaan),
     joten se on $s+4$.
     $$
     s,~ s,~ s,~ s+4, \dots
     $$
-    Otetaan mukaan seuraava ääni, joka tulee kolmeen kertaan. {C4 C4 C4 E4 D4 D4 D4}
+    Otetaan mukaan seuraava ääni, joka tulee kolmeen kertaan. {C5 C5 C5 E5 D5 D5 D5}
     Se on edellisten äänien puolessa välissä, siis $s+2$:
     $$
     \begin{align}
@@ -102,10 +102,10 @@ example:
     &s+2,~ s+2,~ s+2, \dots
     \end{align}
     $$
-    Näiden jälkeen tuleva ääni ei ole $s+6$ {F#4} kuten voisi arvata,
+    Näiden jälkeen tuleva ääni ei ole $s+6$ {F#5} kuten voisi arvata,
     sillä sen kanssa Ukko Nooan alku kuulostaisi väärältä:
-    {C4 C4 C4 E4 D4 D4 D4 F#4}
-    Oikea ääni on $s+5$ {F4}, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
+    {C5 C5 C5 E5 D5 D5 D5 F#5}
+    Oikea ääni on $s+5$ {F5}, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
     Ukko Nooan äänet ovat siis:
     $$
     \begin{align}
@@ -121,7 +121,7 @@ Sitä kannattaa ajatella äänenä, johon muiden äänien vertaaminen on luontev
 ja se on yleensä ensimmäinen tai viimeinen ääni.
 Eri sävellajilla $s$ koko Ukko Nooa siirtyy saman verran ylöspäin tai alaspäin,
 vaikkapa näin:
-{F#4 F#4 F#4 A#4 G#4 G#4 G#4 B4 A#4 A#4 G#4 G#4 F#4}
+{F#5 F#5 F#5 A#5 G#5 G#5 G#5 B5 A#5 A#5 G#5 G#5 F#5}
 
 Emme sopineet, mitä tarkoittaa vaikkapa äänenkorkeus 0.
 Tarkoitus onkin, että ääneksi 0 voi valita sellaisen äänen,
@@ -163,7 +163,7 @@ python:
     yield '<div class="all-notes-table">'
     yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
     yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-    for y, note_number in enumerate((2, 3, 4, 5), start=2):
+    for y, note_number in enumerate((3, 4, 5, 6, 7), start=2):
         for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
             yield f'<span style="grid-column: {x}; grid-row: {y}">'
             yield from builder.converter.convert_chunk('[' + note + str(note_number) + ']', filename)
@@ -176,7 +176,7 @@ python:
     yield '<div class="all-notes-table">'
     yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
     yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
-    for y, note_number in enumerate((2, 3, 4, 5), start=2):
+    for y, note_number in enumerate((3, 4, 5, 6, 7), start=2):
         for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
             yield f'<span style="grid-column: {x}; grid-row: {y}">'
             yield from builder.converter.convert_chunk('[' + note + str(note_number) + ']', filename)
@@ -189,21 +189,22 @@ Toisaalta pianossa on jokaista oktaavia kohti 5 mustaa kosketinta ja 7 valkoista
 Valkoiset koskettimet vastaavat juurikin niitä ääniä, jotka voidaan ilmaista ilman ylennyksiä tai alennuksia.
 
 example:
-    Jos Ukko Nooan ensimmäinen ääni on [D4], niin kaikki äänet ovat
+    Jos Ukko Nooan ensimmäinen ääni on [D5], niin kaikki äänet ovat
 
     center:
-        [D4] [D4] [D4] [F#4] [E4] [E4] [E4] [G4] [F#4] [F#4] [E4] [E4] [D4].
+        [D5] [D5] [D5] [F#5] [E5] [E5] [E5] [G5] [F#5] [F#5] [E5] [E5] [D5].
 
-    Hassuista #-merkeistä päästään eroon aloittamalla Ukko Nooa vaikkapa äänestä [G4]. Silloin äänet ovat
-
-    center:
-        [G4] [G4] [G4] [B4] [A4] [A4] [A4] [C5] [B4] [B4] [A4] [A4] [G4].
-
-    Huomaa keskellä oleva [C5]. Se ei ole [C4], koska [C4] olisi oktaavin liian matala.
-    Jos aloitetaan äänestä [C4], niin ei tarvita ylennyksiä eikä useampaa eri numeroa:
+    Hassuista #-merkeistä päästään eroon aloittamalla Ukko Nooa vaikkapa äänestä [G5]. Silloin äänet ovat
 
     center:
-        [C4] [C4] [C4] [E4] [D4] [D4] [D4] [F4] [E4] [E4] [D4] [D4] [C4]
+        [G5] [G5] [G5] [B5] [A5] [A5] [A5] [C6] [B5] [B5] [A5] [A5] [G5].
+
+    Huomaa keskellä oleva [C6]. Se ei ole [C5], koska [C5] olisi oktaavin liian matala.
+
+    Jos aloitetaan vaikkapa äänestä [C5], niin ei tarvita ylennyksiä eikä kahta eri numeroa:
+
+    center:
+        [C5] [C5] [C5] [E5] [D5] [D5] [D5] [F5] [E5] [E5] [D5] [D5] [C5]
 
 Esimerkistä näkyy hyvin, kuinka kökkö tämä nimeämisjärjestelmä on.
 Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
@@ -214,7 +215,7 @@ Siinä on taustalla C-duuriasteikko ja A-molliasteikko, jotka määritellään m
 ## Jäännösluokat modulo 12
 
 Usein oktaavin eroista ei kannata välittää,
-eli ääniä [C3], [C4], [C5] jne ajatellaan samoina.
+eli esimerkiksi ääniä [C4], [C5], [C6] jne ajatellaan samoina.
 Määritellään tämä täsmällisesti niin, että merkintä [C] tarkoittaa joukkoa,
 jossa on kaikki $C$-kirjaimella nimetyt äänet.
 

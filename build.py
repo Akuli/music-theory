@@ -57,9 +57,9 @@ def single_note_handler(match, filename):
     if number is None:
         # TODO: create some kind of "play simultaneously at all octaves" thing
         if letter == 'A' or letter == 'B':
-            note_string += "3"
-        else:
             note_string += "4"
+        else:
+            note_string += "5"
     else:
         note_string += number
 

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Musiikkiteoriaa matemaatikoille
+</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Quicksand" rel="stylesheet">
+    <style>html {
+    color: white;
+    background-color: #333;
+}
+
+body {
+    margin: 10px 10px 10px 10px;
+}
+
+.headerlink {
+    color: #4d4d4d;
+}
+
+#content {
+    padding: 10px;
+    max-width: 50em;
+}
+
+a {
+    color: #067;
+    border-bottom: 1px dotted;
+    text-decoration: none;   /* taken care of with the border-bottom thing */
+}
+
+a:hover {
+    color: #852;
+    border-bottom: 1px solid;
+}
+
+.box {
+    border-radius: 10px;
+    padding: 15px;
+}
+.definition { background-color: #1c1c1c; }
+.theorem { background-color: #110fbd; }
+.proof { background-color: #2b538f; }
+.example { background-color: #5c3761; }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quicksand;
+}
+
+p, li, #sidebar {
+    font-family: Cabin;
+    font-size: 1em;
+    line-height: 140%;
+}
+
+div.clock {
+    position: relative;
+    width: 20em;
+    height: 20em;
+}
+div.clock > button {
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);  /* "left" and "right" are actually coordinates of center */
+}
+div.clock > button:nth-child(1) { left: calc(10em + 9em*sin(0deg)); top: calc(10em - 9em*cos(0deg)); }
+div.clock > button:nth-child(2) { left: calc(10em + 9em*sin(30deg)); top: calc(10em - 9em*cos(30deg)); }
+div.clock > button:nth-child(3) { left: calc(10em + 9em*sin(60deg)); top: calc(10em - 9em*cos(60deg)); }
+div.clock > button:nth-child(4) { left: calc(10em + 9em*sin(90deg)); top: calc(10em - 9em*cos(90deg)); }
+div.clock > button:nth-child(5) { left: calc(10em + 9em*sin(120deg)); top: calc(10em - 9em*cos(120deg)); }
+div.clock > button:nth-child(6) { left: calc(10em + 9em*sin(150deg)); top: calc(10em - 9em*cos(150deg)); }
+div.clock > button:nth-child(7) { left: calc(10em + 9em*sin(180deg)); top: calc(10em - 9em*cos(180deg)); }
+div.clock > button:nth-child(8) { left: calc(10em + 9em*sin(210deg)); top: calc(10em - 9em*cos(210deg)); }
+div.clock > button:nth-child(9) { left: calc(10em + 9em*sin(240deg)); top: calc(10em - 9em*cos(240deg)); }
+div.clock > button:nth-child(10) { left: calc(10em + 9em*sin(270deg)); top: calc(10em - 9em*cos(270deg)); }
+div.clock > button:nth-child(11) { left: calc(10em + 9em*sin(300deg)); top: calc(10em - 9em*cos(300deg)); }
+div.clock > button:nth-child(12) { left: calc(10em + 9em*sin(330deg)); top: calc(10em - 9em*cos(330deg)); }
+
+div.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
+    <script>function noteToFrequency(noteName) {
+  if (noteName === '.') {
+    return 0;   // silence
+  }
+
+  const match = /^([A-G])([#b]?)(-?\d+)$/.exec(noteName);
+  if (!match) {
+    throw new Error(`bad note name: ${noteName}`);
+  }
+
+  const letter = match[1];
+  const sharpOrFlat = match[2];
+  const octaveNum = match[3];
+
+  let shiftFromC0 = "C D EF G A B".indexOf(letter) + 12*(+octaveNum);
+  if (sharpOrFlat === '#') shiftFromC0++;
+  if (sharpOrFlat === 'b') shiftFromC0--;
+
+  const shiftFromA4 = shiftFromC0 - 9 - 4*12;
+  return 440 * Math.pow(2, shiftFromA4 / 12);
+}
+
+let audioContext = null;
+let oscillatorNode = null;
+let gainNode = null;
+
+function playNotes(noteString) {
+  if (!audioContext && !oscillatorNode && !gainNode) {
+    audioContext = new AudioContext();
+    oscillatorNode = new OscillatorNode(audioContext, {frequency: 0, type: "sine"});
+    gainNode = new GainNode(audioContext);
+    oscillatorNode.start();
+  }
+
+  oscillatorNode.frequency.cancelScheduledValues(audioContext.currentTime);
+  gainNode.gain.cancelScheduledValues(audioContext.currentTime);
+
+  const noteDuration = 0.5;
+  const volume = 0.5;
+
+  const playingStartTime = audioContext.currentTime + 0.050;
+
+  noteString.split(" ").map(noteToFrequency).forEach((freq, idx) => {
+    const fadeInStart = playingStartTime + idx*noteDuration;
+    const fadeInEnd = fadeInStart + 0.01*noteDuration;
+    const fadeOutStart = fadeInStart + 0.80*noteDuration;
+    const fadeOutEnd = fadeInStart + 0.90*noteDuration;
+
+    oscillatorNode.frequency.setValueAtTime(freq, fadeInStart);
+
+    gainNode.gain.setValueAtTime(0, fadeInStart);
+    gainNode.gain.linearRampToValueAtTime(volume, fadeInEnd);
+    gainNode.gain.setValueAtTime(volume, fadeOutStart);
+    gainNode.gain.linearRampToValueAtTime(0, fadeOutEnd);
+  });
+
+  oscillatorNode.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+}
+</script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [ ['$','$'] ],
+            displayMath: [ ['$$','$$'] ],
+            macros: {
+                abs: [ "\left| {#1} \right|", 1 ],
+                epsi: '\varepsilon',
+            }
+        }
+    };
+</script>
+    </head>
+<body>
+<div id="content">
+<h1 id="musiikkiteoriaa-matemaatikoille">Musiikkiteoriaa matemaatikoille<a class="headerlink" href="#musiikkiteoriaa-matemaatikoille" title="Link to this title">¶</a></h1><p>(This page is in Finnish. Please <a href="https://github.com/Akuli/music-theory">create an issue on GitHub</a> if you want an English version.)</p>
+
+<p>Selitetään musiikin teorian oleellisimmat käsitteet ja tulokset matematiikan kielellä.
+Äänenkorkeuksien, intervallien, sointujen jne käsittely on matemaattisesti yllättävän helppoa.
+Teoria palautuu kokonaisluvuilla ja jäännösluokilla laskemiseen, kunhan käsitteet määritellään sopivasti.
+</p>
+
+<h2 id="intervallit">Intervallit<a class="headerlink" href="#intervallit" title="Link to this title">¶</a></h2><div class="box definition"><h4>Määritelmä</h4><p><b>Intervalli</b> tarkoittaa kahden eri äänenkorkeuden eroa.
+Tärkeimmät intervallit ovat</p>
+
+<ul><li><b>oktaavi</b>: <button onclick="playNotes('C4 C5')">▶</button></li><li><b>sävelaskel</b> eli <b>kokosävelaskel</b> eli <b>kokonainen sävelaskel</b>: <button onclick="playNotes('C4 D4')">▶</button></li><li><b>puolisävelaskel</b> eli <b>puolikas sävelaskel</b> (puolet kokonaisesta sävelaskeleesta): <button onclick="playNotes('C4 C#4')">▶</button>
+</li></ul></div><p>Oktaavi on jossakin mielessä sama ääni eri korkeudella.
+Tähän palataan myöhemmin.</p>
+
+<p>Huomaa, että sama intervalli löytyy usiden eri äänien välitä.
+Esimerkiksi nämä ovat oktaaveja: <button onclick="playNotes('E5 E6')">▶</button> <button onclick="playNotes('Ab3 Ab4')">▶</button>
+Nämä taas ovat kokonaisia sävelaskelia: <button onclick="playNotes('E5 F#5')">▶</button> <button onclick="playNotes('Ab3 Bb3')">▶</button></p>
+
+<p>Seuraava lause on tärkeä, koska “taikaluku” 12 esiintyy jatkossa paljon.</p>
+
+<div class="box theorem"><h4>Lause</h4><p>Yksi oktaavi on 12 puolikasta sävelaskelta.</p>
+
+<div class="box proof"><h4>Todistus</h4><p>Kuunnellaan tämä: <button onclick="playNotes('C4 D4 E4 F#4 G#4 A#4 C5 . C4 C5')">▶</button>
+Tässä on ensin seitsemän nousevan äänen jono.
+Näiden väleissä on 6 nousua, ja jokainen nousu on yhden sävelaskelen kokoinen.
+Lopuksi ensimmäinen ja viimeinen ääni soivat uudestaan, ja huomataan, että ne muodostavat oktaavin.
+Näin ollen oktaavi on 6 kokonaista sävelaskelta eli 12 puolikasta.
+</p>
+
+</div></div><p>TODO: selitä miksi oktaavi on jaettu juuri 12 osaan?</p>
+
+<p>Saman todistuksen voi tehdä puolikkailla sävelaskelilla,
+mutta tällöin on vaikeampi vakuuttua siitä,
+että jokainen nousu on tarkalleen puolisävelaskelen kokoinen:
+<button onclick="playNotes('C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4 C5 . C4 C5')">▶</button></p>
+
+<p>Puolikkaista sävelaskeleista voidaan muodostaa muitakin intervalleja:</p>
+
+<ul><li>1 puolikas: <button onclick="playNotes('C4 C#4')">▶</button></li><li>2 puolikasta (1 kokonainen): <button onclick="playNotes('C4 D4')">▶</button></li><li>3 puolikasta: <button onclick="playNotes('C4 D#4')">▶</button></li><li>4 puolikasta: <button onclick="playNotes('C4 E4')">▶</button></li><li>5 puolikasta: <button onclick="playNotes('C4 F4')">▶</button></li><li>6 puolikasta: <button onclick="playNotes('C4 F#4')">▶</button></li><li>7 puolikasta: <button onclick="playNotes('C4 G4')">▶</button></li><li>8 puolikasta: <button onclick="playNotes('C4 G#4')">▶</button></li><li>9 puolikasta: <button onclick="playNotes('C4 A4')">▶</button></li><li>10 puolikasta: <button onclick="playNotes('C4 A#4')">▶</button></li><li>11 puolikasta: <button onclick="playNotes('C4 B4')">▶</button></li><li>12 puolikasta (oktaavi): <button onclick="playNotes('C4 C5')">▶</button>
+</li></ul><p>Näille on annettu nimet, mutta nimistä ei kannata välittää.
+Intervallien kuuleminen on paljon tärkeämpää, ja <b>sitä kannattaa harjoitella</b>.
+Voit vaikka klikata listasta silmät kiinni randomia ääntä
+ja yrittää arvata, kuinka monen puolikkaan intervalli on kyseessä.
+Tämän pitäisi onnistua helposti.
+</p>
+
+<h2 id="äänenkorkeudet-kokonaislukuina">Äänenkorkeudet kokonaislukuina<a class="headerlink" href="#äänenkorkeudet-kokonaislukuina" title="Link to this title">¶</a></h2><p>Länsimaisessa musiikissa kaikki äänet ovat lähes aina jonkin puolisävelaskelen monikerran päässä toisistaan.
+Tämä johtuu soittimista.
+Esimerkiksi kitarassa sormen liikuttaminen seuraavalle nauhalle muuttaa kielen ääntä puolisävelaskelen verran,
+ja pianon koskettimet ovat puolisävelaskelen välein, jos lasketaan mukaan mustat ja valkoiset koskettimet.
+Suuri osa musiikin teoriasta palautuu kokonaisluvuilla laskemiseksi, kun rajoitumme näihin äänenkorkeuksiin.</p>
+
+<div class="box definition"><h4>Määritelmä</h4><p>Unohdetaan muut kuin toisistaan puolisävelaskelen monikerran päässä olevat äänenkorkeudet.
+Asetetaan jäljelle jäävät äänenkorkeudet vastaamaan kokonaislukuja käyttäen yksikkönä puolisävelaskelta,
+eli jos jotakin äänenkorkeutta vastaa luku $k \in \mathbb{Z}$,
+niin $k+1$ vastaa puolikkaan sävelaskelen verran korkeampaa ääntä
+ja $k-1$ puolisävelaskelen verran matalampaa ääntä.
+</p>
+
+</div><p>Jos siis esimerkiksi ääntä <button onclick="playNotes('A4')">▶</button> vastaa luku 15, niin ääni <button onclick="playNotes('C5')">▶</button> on 18.
+Tässä intervallit ovat positiivisia kokonaislukuja: äänien 15 ja 18 välinen intervalli on 3.</p>
+
+<div class="box example"><h4>Esimerkki</h4><p>Tässä on pätkä Ukko Nooaa. <button onclick="playNotes('C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4')">▶</button>
+Selvitetään sen äänet ensimmäiseen ääneen verrattuna.</p>
+
+<p>Kuunnellaan ensin neljää ensimmäistä ääntä. <button onclick="playNotes('C4 C4 C4 E4')">▶</button>
+Olkoon $s \in \mathbb{Z}$ ensimmäinen ääni. Se tulee kolme kertaa.
+Seuraava ääni on neljän puolikkaan päässä ensimmäisestä (vertaa yllä olevaan intervallilistaan),
+joten se on $s+4$.
+$$
+s,~ s,~ s,~ s+4, \dots
+$$
+Otetaan mukaan seuraava ääni, joka tulee kolmeen kertaan. <button onclick="playNotes('C4 C4 C4 E4 D4 D4 D4')">▶</button>
+Se on edellisten äänien puolessa välissä, siis $s+2$:
+$$
+\begin{align}
+&s,~ s,~ s,~ s+4, \\
+&s+2,~ s+2,~ s+2, \dots
+\end{align}
+$$
+Näiden jälkeen tuleva ääni ei ole $s+6$ <button onclick="playNotes('F#4')">▶</button> kuten voisi arvata,
+sillä sen kanssa Ukko Nooan alku kuulostaisi väärältä:
+<button onclick="playNotes('C4 C4 C4 E4 D4 D4 D4 F#4')">▶</button>
+Oikea ääni on $s+5$ <button onclick="playNotes('F4')">▶</button>, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
+Ukko Nooan äänet ovat siis:
+$$
+\begin{align}
+&s,~ s,~ s,~ s+4, \\
+& s+2,~ s+2,~ s+2,~ s+5, \\
+&s+4,~ s+4,~ s+2,~ s+2,~ s.
+\end{align}
+$$
+</p>
+
+</div><p>Äänenkorkeutta $s$ sanotaan <b>sävellajiksi</b>.
+Sävellajin määritteleminen täsmällisesti on vaikeaa.
+Sitä kannattaa ajatella äänenä, johon muiden äänien vertaaminen on luontevaa,
+ja se on yleensä ensimmäinen tai viimeinen ääni.
+Eri sävellajilla $s$ koko Ukko Nooa siirtyy saman verran ylöspäin tai alaspäin,
+vaikkapa näin:
+<button onclick="playNotes('F#4 F#4 F#4 A#4 G#4 G#4 G#4 B4 A#4 A#4 G#4 G#4 F#4')">▶</button></p>
+
+<p>Emme sopineet, mitä tarkoittaa vaikkapa äänenkorkeus 0.
+Tarkoitus onkin, että ääneksi 0 voi valita sellaisen äänen,
+että teorian pyörittämisestä tulee mahdollisimman yksinkertaista.
+Usein kannattaa ajatella, että ääni 0 tarkoittaa sävellajia.
+Kitaratabeissa nolla tarkoittaa sitä ääntä, joka kitaran kielestä lähtee kun se soi vapaana.</p>
+
+<div class="box example"><h4>Esimerkki</h4><p>Jos sovitaan, että Ukko Nooan ensimmäinen ääni on nolla, niin kaikki äänet ovat
+$$
+0,0,0,4,2,2,2,5,4,4,2,2,0.
+$$
+</p>
+
+</div><p>Tämä näyttää nyt epäilyttävästi tiktokeilta,
+joissa on selvästi feikkiä soittoa ja kasa randomeja numeroita.
+Ehkä tiktokeissa yritettiin alun perin tehdä jotain tämän kaltaista.
+</p>
+
+<h2 id="äänenkorkeuksien-tavalliset-nimet">Äänenkorkeuksien tavalliset nimet<a class="headerlink" href="#äänenkorkeuksien-tavalliset-nimet" title="Link to this title">¶</a></h2><div class="box definition"><h4>Määritelmä</h4><p>Nimetään äänenkorkeudet näin:</p>
+
+<ul><li>440 Hz värähtelystä muodostuvan äänenkorkeuden nimi on <button onclick="playNotes('A4')">$A_{4}$</button>.</li><li><button onclick="playNotes('B4')">$B_{4}$</button> $=$ <button onclick="playNotes('A4')">$A_{4}$</button> ${}+2$</li><li><button onclick="playNotes('C5')">$C_{5}$</button> $=$ <button onclick="playNotes('B4')">$B_{4}$</button> ${}+1$</li><li><button onclick="playNotes('D5')">$D_{5}$</button> $=$ <button onclick="playNotes('C5')">$C_{5}$</button> ${}+2$</li><li><button onclick="playNotes('E5')">$E_{5}$</button> $=$ <button onclick="playNotes('D5')">$D_{5}$</button> ${}+2$</li><li><button onclick="playNotes('F5')">$F_{5}$</button> $=$ <button onclick="playNotes('E5')">$E_{5}$</button> ${}+1$</li><li><button onclick="playNotes('G5')">$G_{5}$</button> $=$ <button onclick="playNotes('F5')">$F_{5}$</button> ${}+2$</li><li>Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin, eli $X_{n+1}=X_n+12$, missä $X$ on jokin kirjain välillä A-G.</li><li><b>Ylennysmerkki</b> $\#$ tarkoittaa puolisävelaskelen verran korkeampaa ääntä: $X\#_n=X_n+1$</li><li><b>Alennusmerkki</b> $b$ tarkoittaa puolisävelaskelen verran matalampaa ääntä: $Xb_n=X_n-1$</li><li>H tarkoittaa samaa kuin B, esimerkiksi $H_4 = B_4$.
+</li></ul></div><p>Kaikki äänenkorkeudet puolisävelaskelen välein ovat:</p>
+
+<div class="center"><div style="display: grid; justify-items: center; width: fit-content"><span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span><span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span><span style="grid-column: 1; grid-row: 2"><button onclick="playNotes('C2')">$C_{2}$</button></span><span style="grid-column: 2; grid-row: 2"><button onclick="playNotes('C#2')">$C\#_{2}$</button></span><span style="grid-column: 3; grid-row: 2"><button onclick="playNotes('D2')">$D_{2}$</button></span><span style="grid-column: 4; grid-row: 2"><button onclick="playNotes('D#2')">$D\#_{2}$</button></span><span style="grid-column: 5; grid-row: 2"><button onclick="playNotes('E2')">$E_{2}$</button></span><span style="grid-column: 6; grid-row: 2"><button onclick="playNotes('F2')">$F_{2}$</button></span><span style="grid-column: 7; grid-row: 2"><button onclick="playNotes('F#2')">$F\#_{2}$</button></span><span style="grid-column: 8; grid-row: 2"><button onclick="playNotes('G2')">$G_{2}$</button></span><span style="grid-column: 9; grid-row: 2"><button onclick="playNotes('G#2')">$G\#_{2}$</button></span><span style="grid-column: 10; grid-row: 2"><button onclick="playNotes('A2')">$A_{2}$</button></span><span style="grid-column: 11; grid-row: 2"><button onclick="playNotes('A#2')">$A\#_{2}$</button></span><span style="grid-column: 12; grid-row: 2"><button onclick="playNotes('B2')">$B_{2}$</button></span><span style="grid-column: 1; grid-row: 3"><button onclick="playNotes('C3')">$C_{3}$</button></span><span style="grid-column: 2; grid-row: 3"><button onclick="playNotes('C#3')">$C\#_{3}$</button></span><span style="grid-column: 3; grid-row: 3"><button onclick="playNotes('D3')">$D_{3}$</button></span><span style="grid-column: 4; grid-row: 3"><button onclick="playNotes('D#3')">$D\#_{3}$</button></span><span style="grid-column: 5; grid-row: 3"><button onclick="playNotes('E3')">$E_{3}$</button></span><span style="grid-column: 6; grid-row: 3"><button onclick="playNotes('F3')">$F_{3}$</button></span><span style="grid-column: 7; grid-row: 3"><button onclick="playNotes('F#3')">$F\#_{3}$</button></span><span style="grid-column: 8; grid-row: 3"><button onclick="playNotes('G3')">$G_{3}$</button></span><span style="grid-column: 9; grid-row: 3"><button onclick="playNotes('G#3')">$G\#_{3}$</button></span><span style="grid-column: 10; grid-row: 3"><button onclick="playNotes('A3')">$A_{3}$</button></span><span style="grid-column: 11; grid-row: 3"><button onclick="playNotes('A#3')">$A\#_{3}$</button></span><span style="grid-column: 12; grid-row: 3"><button onclick="playNotes('B3')">$B_{3}$</button></span><span style="grid-column: 1; grid-row: 4"><button onclick="playNotes('C4')">$C_{4}$</button></span><span style="grid-column: 2; grid-row: 4"><button onclick="playNotes('C#4')">$C\#_{4}$</button></span><span style="grid-column: 3; grid-row: 4"><button onclick="playNotes('D4')">$D_{4}$</button></span><span style="grid-column: 4; grid-row: 4"><button onclick="playNotes('D#4')">$D\#_{4}$</button></span><span style="grid-column: 5; grid-row: 4"><button onclick="playNotes('E4')">$E_{4}$</button></span><span style="grid-column: 6; grid-row: 4"><button onclick="playNotes('F4')">$F_{4}$</button></span><span style="grid-column: 7; grid-row: 4"><button onclick="playNotes('F#4')">$F\#_{4}$</button></span><span style="grid-column: 8; grid-row: 4"><button onclick="playNotes('G4')">$G_{4}$</button></span><span style="grid-column: 9; grid-row: 4"><button onclick="playNotes('G#4')">$G\#_{4}$</button></span><span style="grid-column: 10; grid-row: 4"><button onclick="playNotes('A4')">$A_{4}$</button></span><span style="grid-column: 11; grid-row: 4"><button onclick="playNotes('A#4')">$A\#_{4}$</button></span><span style="grid-column: 12; grid-row: 4"><button onclick="playNotes('B4')">$B_{4}$</button></span><span style="grid-column: 1; grid-row: 5"><button onclick="playNotes('C5')">$C_{5}$</button></span><span style="grid-column: 2; grid-row: 5"><button onclick="playNotes('C#5')">$C\#_{5}$</button></span><span style="grid-column: 3; grid-row: 5"><button onclick="playNotes('D5')">$D_{5}$</button></span><span style="grid-column: 4; grid-row: 5"><button onclick="playNotes('D#5')">$D\#_{5}$</button></span><span style="grid-column: 5; grid-row: 5"><button onclick="playNotes('E5')">$E_{5}$</button></span><span style="grid-column: 6; grid-row: 5"><button onclick="playNotes('F5')">$F_{5}$</button></span><span style="grid-column: 7; grid-row: 5"><button onclick="playNotes('F#5')">$F\#_{5}$</button></span><span style="grid-column: 8; grid-row: 5"><button onclick="playNotes('G5')">$G_{5}$</button></span><span style="grid-column: 9; grid-row: 5"><button onclick="playNotes('G#5')">$G\#_{5}$</button></span><span style="grid-column: 10; grid-row: 5"><button onclick="playNotes('A5')">$A_{5}$</button></span><span style="grid-column: 11; grid-row: 5"><button onclick="playNotes('A#5')">$A\#_{5}$</button></span><span style="grid-column: 12; grid-row: 5"><button onclick="playNotes('B5')">$B_{5}$</button></span></div></div><p>tai ekvivalentisti:</p>
+
+<div class="center"><div style="display: grid; justify-items: center; width: fit-content"><span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span><span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span><span style="grid-column: 1; grid-row: 2"><button onclick="playNotes('C2')">$C_{2}$</button></span><span style="grid-column: 2; grid-row: 2"><button onclick="playNotes('Db2')">$Db_{2}$</button></span><span style="grid-column: 3; grid-row: 2"><button onclick="playNotes('D2')">$D_{2}$</button></span><span style="grid-column: 4; grid-row: 2"><button onclick="playNotes('Eb2')">$Eb_{2}$</button></span><span style="grid-column: 5; grid-row: 2"><button onclick="playNotes('E2')">$E_{2}$</button></span><span style="grid-column: 6; grid-row: 2"><button onclick="playNotes('F2')">$F_{2}$</button></span><span style="grid-column: 7; grid-row: 2"><button onclick="playNotes('Gb2')">$Gb_{2}$</button></span><span style="grid-column: 8; grid-row: 2"><button onclick="playNotes('G2')">$G_{2}$</button></span><span style="grid-column: 9; grid-row: 2"><button onclick="playNotes('Ab2')">$Ab_{2}$</button></span><span style="grid-column: 10; grid-row: 2"><button onclick="playNotes('A2')">$A_{2}$</button></span><span style="grid-column: 11; grid-row: 2"><button onclick="playNotes('Bb2')">$Bb_{2}$</button></span><span style="grid-column: 12; grid-row: 2"><button onclick="playNotes('B2')">$B_{2}$</button></span><span style="grid-column: 1; grid-row: 3"><button onclick="playNotes('C3')">$C_{3}$</button></span><span style="grid-column: 2; grid-row: 3"><button onclick="playNotes('Db3')">$Db_{3}$</button></span><span style="grid-column: 3; grid-row: 3"><button onclick="playNotes('D3')">$D_{3}$</button></span><span style="grid-column: 4; grid-row: 3"><button onclick="playNotes('Eb3')">$Eb_{3}$</button></span><span style="grid-column: 5; grid-row: 3"><button onclick="playNotes('E3')">$E_{3}$</button></span><span style="grid-column: 6; grid-row: 3"><button onclick="playNotes('F3')">$F_{3}$</button></span><span style="grid-column: 7; grid-row: 3"><button onclick="playNotes('Gb3')">$Gb_{3}$</button></span><span style="grid-column: 8; grid-row: 3"><button onclick="playNotes('G3')">$G_{3}$</button></span><span style="grid-column: 9; grid-row: 3"><button onclick="playNotes('Ab3')">$Ab_{3}$</button></span><span style="grid-column: 10; grid-row: 3"><button onclick="playNotes('A3')">$A_{3}$</button></span><span style="grid-column: 11; grid-row: 3"><button onclick="playNotes('Bb3')">$Bb_{3}$</button></span><span style="grid-column: 12; grid-row: 3"><button onclick="playNotes('B3')">$B_{3}$</button></span><span style="grid-column: 1; grid-row: 4"><button onclick="playNotes('C4')">$C_{4}$</button></span><span style="grid-column: 2; grid-row: 4"><button onclick="playNotes('Db4')">$Db_{4}$</button></span><span style="grid-column: 3; grid-row: 4"><button onclick="playNotes('D4')">$D_{4}$</button></span><span style="grid-column: 4; grid-row: 4"><button onclick="playNotes('Eb4')">$Eb_{4}$</button></span><span style="grid-column: 5; grid-row: 4"><button onclick="playNotes('E4')">$E_{4}$</button></span><span style="grid-column: 6; grid-row: 4"><button onclick="playNotes('F4')">$F_{4}$</button></span><span style="grid-column: 7; grid-row: 4"><button onclick="playNotes('Gb4')">$Gb_{4}$</button></span><span style="grid-column: 8; grid-row: 4"><button onclick="playNotes('G4')">$G_{4}$</button></span><span style="grid-column: 9; grid-row: 4"><button onclick="playNotes('Ab4')">$Ab_{4}$</button></span><span style="grid-column: 10; grid-row: 4"><button onclick="playNotes('A4')">$A_{4}$</button></span><span style="grid-column: 11; grid-row: 4"><button onclick="playNotes('Bb4')">$Bb_{4}$</button></span><span style="grid-column: 12; grid-row: 4"><button onclick="playNotes('B4')">$B_{4}$</button></span><span style="grid-column: 1; grid-row: 5"><button onclick="playNotes('C5')">$C_{5}$</button></span><span style="grid-column: 2; grid-row: 5"><button onclick="playNotes('Db5')">$Db_{5}$</button></span><span style="grid-column: 3; grid-row: 5"><button onclick="playNotes('D5')">$D_{5}$</button></span><span style="grid-column: 4; grid-row: 5"><button onclick="playNotes('Eb5')">$Eb_{5}$</button></span><span style="grid-column: 5; grid-row: 5"><button onclick="playNotes('E5')">$E_{5}$</button></span><span style="grid-column: 6; grid-row: 5"><button onclick="playNotes('F5')">$F_{5}$</button></span><span style="grid-column: 7; grid-row: 5"><button onclick="playNotes('Gb5')">$Gb_{5}$</button></span><span style="grid-column: 8; grid-row: 5"><button onclick="playNotes('G5')">$G_{5}$</button></span><span style="grid-column: 9; grid-row: 5"><button onclick="playNotes('Ab5')">$Ab_{5}$</button></span><span style="grid-column: 10; grid-row: 5"><button onclick="playNotes('A5')">$A_{5}$</button></span><span style="grid-column: 11; grid-row: 5"><button onclick="playNotes('Bb5')">$Bb_{5}$</button></span><span style="grid-column: 12; grid-row: 5"><button onclick="playNotes('B5')">$B_{5}$</button></span></div></div><p>Jokaisella oktaavilla (rivillä) tarvittiin alennusta tai ylennystä viiteen ääneen,
+ja loput 7 ilmaistiin pelkällä kirjaimella ja numerolla.
+Toisaalta pianossa on jokaista oktaavia kohti 5 mustaa kosketinta ja 7 valkoista.
+Valkoiset koskettimet vastaavat juurikin niitä ääniä, jotka voidaan ilmaista ilman ylennyksiä tai alennuksia.</p>
+
+<div class="box example"><h4>Esimerkki</h4><p>Jos Ukko Nooan ensimmäinen ääni on <button onclick="playNotes('D4')">$D_{4}$</button>, niin kaikki äänet ovat</p>
+
+<div class="center"><p><button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('F#4')">$F\#_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('G4')">$G_{4}$</button> <button onclick="playNotes('F#4')">$F\#_{4}$</button> <button onclick="playNotes('F#4')">$F\#_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button>.
+</p>
+
+</div><p>Hassuista #-merkeistä päästään eroon aloittamalla Ukko Nooa vaikkapa äänestä <button onclick="playNotes('G4')">$G_{4}$</button>. Silloin äänet ovat</p>
+
+<div class="center"><p><button onclick="playNotes('G4')">$G_{4}$</button> <button onclick="playNotes('G4')">$G_{4}$</button> <button onclick="playNotes('G4')">$G_{4}$</button> <button onclick="playNotes('B4')">$B_{4}$</button> <button onclick="playNotes('A4')">$A_{4}$</button> <button onclick="playNotes('A4')">$A_{4}$</button> <button onclick="playNotes('A4')">$A_{4}$</button> <button onclick="playNotes('C5')">$C_{5}$</button> <button onclick="playNotes('B4')">$B_{4}$</button> <button onclick="playNotes('B4')">$B_{4}$</button> <button onclick="playNotes('A4')">$A_{4}$</button> <button onclick="playNotes('A4')">$A_{4}$</button> <button onclick="playNotes('G4')">$G_{4}$</button>.
+</p>
+
+</div><p>Huomaa keskellä oleva <button onclick="playNotes('C5')">$C_{5}$</button>. Se ei ole <button onclick="playNotes('C4')">$C_{4}$</button>, koska <button onclick="playNotes('C4')">$C_{4}$</button> olisi oktaavin liian matala.
+Jos aloitetaan äänestä <button onclick="playNotes('C4')">$C_{4}$</button>, niin ei tarvita ylennyksiä eikä useampaa eri numeroa:</p>
+
+<div class="center"><p><button onclick="playNotes('C4')">$C_{4}$</button> <button onclick="playNotes('C4')">$C_{4}$</button> <button onclick="playNotes('C4')">$C_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('F4')">$F_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('E4')">$E_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('D4')">$D_{4}$</button> <button onclick="playNotes('C4')">$C_{4}$</button>
+</p>
+
+</div></div><p>Esimerkistä näkyy hyvin, kuinka kökkö tämä nimeämisjärjestelmä on.
+Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
+Nimeäminen ei ole kuitenkaan ihan hatusta vedetty.
+Siinä on taustalla C-duuriasteikko ja A-molliasteikko, jotka määritellään myöhemmin.
+</p>
+
+<h2 id="jäännösluokat-modulo-12">Jäännösluokat modulo 12<a class="headerlink" href="#jäännösluokat-modulo-12" title="Link to this title">¶</a></h2><p>Usein oktaavin eroista ei kannata välittää,
+eli ääniä <button onclick="playNotes('C3')">$C_{3}$</button>, <button onclick="playNotes('C4')">$C_{4}$</button>, <button onclick="playNotes('C5')">$C_{5}$</button> jne ajatellaan samoina.
+Määritellään tämä täsmällisesti niin, että merkintä <button onclick="playNotes('C4')">$C$</button> tarkoittaa joukkoa,
+jossa on kaikki $C$-kirjaimella nimetyt äänet.</p>
+
+<div class="box definition"><h4>Määritelmä</h4><p>Äänenkorkeuden $k \in \mathbb{Z}$ <b>jäännösluokka</b> modulo 12 on joukko
+$$
+\overline{k} = \{ k+12n ~|~ n \in \mathbb{Z} \},
+$$
+eli sellaisten äänien joukko, joiden etäisyys ääneen $k$ on jokin kokonaislukumäärä oktaaveja.
+Merkitään jäännösluokkia samoin kuin ääniä mutta pelkillä kirjaimilla, eli esimerkiksi
+$$
+C = \overline{C_n} = \{ \dots, C_{-2}, C_{-1}, C_0, C_1, C_2, C_3, \dots \}.
+$$
+Määritellään jäännösluokan $k$ ja kokonaisluvun $n$ yhteenlasku
+$$
+\overline{k} + n = \overline{k+n},
+$$
+ja merkitään $X\#=X+1$ ja $Xb=X-1$, missä $X$ on jokin kirjain välillä A-G.
+Kaikkien jäännösluokkien joukko on</p>
+
+<div class="center"><p>$\mathbb{Z}_{12} = \{$ <button onclick="playNotes('A3')">$A$</button>,<button onclick="playNotes('A#3')">$A\#$</button>,<button onclick="playNotes('B3')">$B$</button>,<button onclick="playNotes('C4')">$C$</button>,<button onclick="playNotes('C#4')">$C\#$</button>,<button onclick="playNotes('D4')">$D$</button>,<button onclick="playNotes('D#4')">$D\#$</button>,<button onclick="playNotes('E4')">$E$</button>,<button onclick="playNotes('F4')">$F$</button>,<button onclick="playNotes('F#4')">$F\#$</button>,<button onclick="playNotes('G4')">$G$</button>,<button onclick="playNotes('G#4')">$G\#$</button> $\}.$
+</p>
+
+</div></div><p>Jäännösluokkien määritelmä ja yhteenlasku on otettu suoraan algebran peruskursseilta.
+Kyseessä on tavallinen modulaarinen yhteenlasku.</p>
+
+<p>Jäännösluokkia on usein helpompi ajatella kuin äänenkorkeuksia,
+koska on vain 12 eri jäännösluokkaa,
+ja kun jäännösluokka tiedetään, niin sopiva äänenkorkeus löytyy helposti vaikka kokeilemalla.
+Esimerkiksi kitaristeille on parempi sanoa "soita G-duuri" kuin "soita G4-duuri".
+Duurisoinnut määritellään myöhemmin.</p>
+
+<div class="box example"><h4>Esimerkki</h4><p>Olkoon $s \in \mathbb{Z}_{12}$ Ukko Nooan ensimmäistä ääntä vastaava jäännösluokka.
+Tällöin kaikki äänet ovat
+$$
+\begin{align}
+&s,~ s,~ s,~ s+4, \\
+& s+2,~ s+2,~ s+2,~ s+5, \\
+&s+4,~ s+4,~ s+2,~ s+2,~ s.
+\end{align}
+$$
+Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan</p>
+
+<div class="center"><p><button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('C4')">$C$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('F4')">$F$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('E4')">$E$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('D4')">$D$</button> <button onclick="playNotes('C4')">$C$</button>.
+</p>
+
+</div></div><p>Koska kellotaulussa on 12 numeroa,
+niin jäännösluokat voi visualisoida piirtämällä ne kellotaulun ympärille.
+Laitetaan vaikkapa $A$ kahteentoista, $A\#$ ykköseen jne:</p>
+
+<div class="center"><p><div class="clock">
+    <button onclick="playNotes('A3')">$A$</button>
+    <button onclick="playNotes('A#3')">$A\#$<br>$Bb$</button>
+    <button onclick="playNotes('B3')">$B$</button>
+    <button onclick="playNotes('C4')">$C$</button>
+    <button onclick="playNotes('C#4')">$C\#$<br>$Db$</button>
+    <button onclick="playNotes('D4')">$D$</button>
+    <button onclick="playNotes('D#4')">$D\#$<br>$Eb$</button>
+    <button onclick="playNotes('E4')">$E$</button>
+    <button onclick="playNotes('F4')">$F$</button>
+    <button onclick="playNotes('F#4')">$F\#$<br>$Gb$</button>
+    <button onclick="playNotes('G4')">$G$</button>
+    <button onclick="playNotes('G#4')">$G\#$<br>$Ab$</button>
+</div>
+</p>
+
+</div></div>
+</body>
+</html>

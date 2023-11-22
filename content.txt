@@ -65,14 +65,14 @@ ja pianon koskettimet ovat puolisävelaskelen välein, jos lasketaan mukaan must
 Suuri osa musiikin teoriasta palautuu kokonaisluvuilla laskemiseksi, kun rajoitumme näihin äänenkorkeuksiin.
 
 definition:
-    Unohdetaan muut kuin toisistaan puolikkaan sävelaskelen päässä olevat äänenkorkeudet.
-    Asetetaan äänenkorkeudet vastaamaan kokonaislukuja käyttäen yksikkönä puolisävelaskelta,
+    Unohdetaan muut kuin toisistaan puolisävelaskelen monikerran päässä olevat äänenkorkeudet.
+    Asetetaan jäljelle jäävät äänenkorkeudet vastaamaan kokonaislukuja käyttäen yksikkönä puolisävelaskelta,
     eli jos jotakin äänenkorkeutta vastaa luku $k \in \mathbb{Z}$,
     niin $k+1$ vastaa puolikkaan sävelaskelen verran korkeampaa ääntä
     ja $k-1$ puolisävelaskelen verran matalampaa ääntä.
 
-Jos siis esimerkiksi $k$ on ääntä {A4} vastaava luku, niin $k+3$ on {C5}.
-Tässä intervallit ovat positiivisia kokonaislukuna: äänien $k$ ja $k+3$ välinen intervalli on $3$.
+Jos siis esimerkiksi ääntä {A4} vastaa luku 15, niin ääni {C5} on 18.
+Tässä intervallit ovat positiivisia kokonaislukuna: äänien 15 ja 18 välinen intervalli on 3.
 
 example:
     Tässä on pätkä Ukko Nooaa. {C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}
@@ -106,7 +106,7 @@ example:
     \end{align}
     $$
 
-Äänenkorkeutta $s$ sanotaan *sävellajiksi*.
+Äänenkorkeutta $s$ sanotaan **sävellajiksi**.
 Sävellajin määritteleminen täsmällisesti on vaikeaa.
 Sitä kannattaa ajatella äänenä, johon muiden äänien vertaaminen on luontevaa,
 ja se on yleensä ensimmäinen tai viimeinen ääni.
@@ -174,10 +174,6 @@ python:
             yield '</span>'
     yield '</div>'
 
-Tässä nimeämisessä on taustalla duuriasteikot ja molliasteikot, jotka määritellään myöhemmin.
-Käytännössä äänien nimeäminen näin on usein juuri niin kökköä kuin voisi arvata.
-Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
-
 Jokaisella oktaavilla (rivillä) tarvittiin alennusta tai ylennystä viiteen ääneen,
 ja loput 7 ilmaistiin pelkällä kirjaimella ja numerolla.
 Toisaalta pianossa on jokaista oktaavia kohti 5 mustaa kosketinta ja 7 valkoista.
@@ -195,6 +191,15 @@ example:
         [G4] [G4] [G4] [B4] [A4] [A4] [A4] [C5] [B4] [B4] [A4] [A4] [G4].
 
     Huomaa keskellä oleva [C5]. Se ei ole [C4], koska [C4] olisi oktaavin liian matala.
+    Jos aloitetaan äänestä [C4], niin ei tarvita ylennyksiä eikä useampaa eri numeroa:
+
+    center:
+        [C4] [C4] [C4] [E4] [D4] [D4] [D4] [F4] [E4] [E4] [D4] [D4] [C4]
+
+Esimerkistä näkyy hyvin, kuinka kökkö tämä nimeämisjärjestelmä on.
+Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
+Nimeäminen ei ole kuitenkaan ihan hatusta vedetty.
+Siinä on taustalla C-duuriasteikko ja A-molliasteikko, jotka määritellään myöhemmin.
 
 
 ## Jäännösluokat modulo 12
@@ -229,8 +234,9 @@ Kyseessä on tavallinen modulaarinen yhteenlasku.
 
 Jäännösluokkia on usein helpompi ajatella kuin äänenkorkeuksia,
 koska on vain 12 eri jäännösluokkaa,
-ja kun jäännösluokan on löytänyt, niin sopiva äänenkorkeus löytyy kokeilemalla.
+ja kun jäännösluokka tiedetään, niin sopiva äänenkorkeus löytyy helposti vaikka kokeilemalla.
 Esimerkiksi kitaristeille on parempi sanoa "soita G-duuri" kuin "soita G4-duuri".
+Duurisoinnut määritellään myöhemmin.
 
 example:
     Olkoon $s \in \mathbb{Z}_{12}$ Ukko Nooan ensimmäistä ääntä vastaava jäännösluokka.

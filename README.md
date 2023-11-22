@@ -17,8 +17,4 @@ $ python3 build.py
 This creates a file `html/index.html` that you can open in browser.
 The build bundles everything into a single, self-contained `.html` file.
 
-Deploying to GitHub Pages:
-
-```
-$ ./deploy.sh
-```
+Pushing to `main` triggers a deploy to GitHub Pages as configured in `.github/workflows/`.

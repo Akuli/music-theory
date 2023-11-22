@@ -106,3 +106,6 @@ def box_handler(match, filename):
 
 
 builder.run()
+
+# tell GitHub Actions to not do anything magical and just serve the html files
+Path("html/.nojekyll").touch()

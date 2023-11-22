@@ -1,5 +1,2 @@
-*.aux
-*.log
-*.out
-*.pdf
-*.wav
+env/
+html/

@@ -1,1 +1,0 @@
-git+https://github.com/Akuli/htmlthingy@9f554e9d8e9bc11acb4aeb43e14b76ee1b164c59

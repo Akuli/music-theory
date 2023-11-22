@@ -1,36 +1,31 @@
 ## Intervallit
 
 definition:
-    *Intervalli* tarkoittaa kahden eri äänenkorkeuden eroa.
+    **Intervalli** tarkoittaa kahden eri äänenkorkeuden eroa.
     Tärkeimmät intervallit ovat
 
-    - *oktaavi*: {C4 C5}
-    - *sävelaskel* eli *kokosävelaskel* eli *kokonainen sävelaskel*: {C4 D4}
-    - *puolisävelaskel* eli *puolikas sävelaskel* (puolet kokonaisesta sävelaskeleesta): {C4 C#4}
+    * **oktaavi**: {C4 C5}
+    * **sävelaskel** eli **kokosävelaskel** eli **kokonainen sävelaskel**: {C4 D4}
+    * **puolisävelaskel** eli **puolikas sävelaskel** (puolet kokonaisesta sävelaskeleesta): {C4 C#4}
 
 Oktaavi on jossakin mielessä sama ääni eri korkeudella.
 Tähän palataan myöhemmin.
 
 Huomaa, että sama intervalli löytyy usiden eri äänien välitä.
-Esimerkiksi nämä ovat oktaaveja:
-- {E5 E6}
-- {Ab3 Ab4}
-
-Nämä taas ovat kokonaisia sävelaskelia:
-- {E5 F#5}
-- {Ab3 Bb3}
+Esimerkiksi nämä ovat oktaaveja: {E5 E6} {Ab3 Ab4}
+Nämä taas ovat kokonaisia sävelaskelia: {E5 F#5} {Ab3 Bb3}
 
 Seuraava lause on tärkeä, koska “taikaluku” 12 esiintyy jatkossa paljon.
 
 theorem:
     Yksi oktaavi on 12 puolikasta sävelaskelta.
 
-proof:
-    Kuunnellaan tämä: {C4 D4 E4 F#4 G#4 A#4 C5 . C4 C5}
-    Tässä on ensin seitsemän nousevan äänen jono.
-    Näiden väleissä on 6 nousua, ja jokainen nousu on yhden sävelaskelen kokoinen.
-    Lopuksi ensimmäinen ja viimeinen ääni soivat uudestaan, ja huomataan, että ne muodostavat oktaavin.
-    Näin ollen oktaavi on 6 kokonaista sävelaskelta eli 12 puolikasta.
+    proof:
+        Kuunnellaan tämä: {C4 D4 E4 F#4 G#4 A#4 C5 . C4 C5}
+        Tässä on ensin seitsemän nousevan äänen jono.
+        Näiden väleissä on 6 nousua, ja jokainen nousu on yhden sävelaskelen kokoinen.
+        Lopuksi ensimmäinen ja viimeinen ääni soivat uudestaan, ja huomataan, että ne muodostavat oktaavin.
+        Näin ollen oktaavi on 6 kokonaista sävelaskelta eli 12 puolikasta.
 
 TODO: selitä miksi oktaavi on jaettu juuri 12 osaan?
 
@@ -40,18 +35,19 @@ että jokainen nousu on tarkalleen puolisävelaskelen kokoinen:
 {C4 C#4 D4 D#4 E4 F4 F#4 G4 G#4 A4 A#4 B4 C5 . C4 C5}
 
 Puolikkaista sävelaskeleista voidaan muodostaa muitakin intervalleja:
-- 1 puolikas: {C4 C#4}
-- 2 puolikasta (1 kokonainen): {C4 D4}
-- 3 puolikasta: {C4 D#4}
-- 4 puolikasta: {C4 E4}
-- 5 puolikasta: {C4 F4}
-- 6 puolikasta: {C4 F#4}
-- 7 puolikasta: {C4 G4}
-- 8 puolikasta: {C4 G#4}
-- 9 puolikasta: {C4 A4}
-- 10 puolikasta: {C4 A#4}
-- 11 puolikasta: {C4 B4}
-- 12 puolikasta (oktaavi): {C4 C5}
+
+* 1 puolikas: {C4 C#4}
+* 2 puolikasta (1 kokonainen): {C4 D4}
+* 3 puolikasta: {C4 D#4}
+* 4 puolikasta: {C4 E4}
+* 5 puolikasta: {C4 F4}
+* 6 puolikasta: {C4 F#4}
+* 7 puolikasta: {C4 G4}
+* 8 puolikasta: {C4 G#4}
+* 9 puolikasta: {C4 A4}
+* 10 puolikasta: {C4 A#4}
+* 11 puolikasta: {C4 B4}
+* 12 puolikasta (oktaavi): {C4 C5}
 
 Näille on annettu nimet, mutta nimistä ei kannata välittää.
 Intervallien kuuleminen on paljon tärkeämpää, ja **sitä kannattaa harjoitella**.
@@ -69,38 +65,45 @@ ja pianon koskettimet ovat puolisävelaskelen välein, jos lasketaan mukaan must
 Suuri osa musiikin teoriasta palautuu kokonaisluvuilla laskemiseksi, kun rajoitumme näihin äänenkorkeuksiin.
 
 definition:
-    Merkitään intervalleja luonnollisina lukuina käyttäen yksikkönä puolisävelaskelta,
-    eli luku $n \in \mathbb{N}$ vastaa $n$ puolikkaan sävelaskelen kokoista intervallia.
-    Olkoon $a$ äänenkorkeus ja $n \in \mathbb{Z}$.
-    Merkintä $a+n$ tarkoittaa sitä äänenkorkeutta, joka on $n$ puolikasta sävelaskelta ylempi kuin $a$.
-    Negatiivinen $n$ tarkoittaa, että $a+n$ on matalampi ääni kuin $a$.
+    Unohdetaan muut kuin toisistaan puolikkaan sävelaskelen päässä olevat äänenkorkeudet.
+    Asetetaan äänenkorkeudet vastaamaan kokonaislukuja käyttäen yksikkönä puolisävelaskelta,
+    eli jos jotakin äänenkorkeutta vastaa luku $k \in \mathbb{Z}$,
+    niin $k+1$ vastaa puolikkaan sävelaskelen verran korkeampaa ääntä
+    ja $k-1$ puolisävelaskelen verran matalampaa ääntä.
 
-Jos esimerkiksi $a$ on {A4}, niin $a+3$ on {C5}.
-Tässä siis ajatellaan intervalleja kokonaislukuna: äänien välinen intervalli on $3$.
+Jos siis esimerkiksi $k$ on ääntä {A4} vastaava luku, niin $k+3$ on {C5}.
+Tässä intervallit ovat positiivisia kokonaislukuna: äänien $k$ ja $k+3$ välinen intervalli on $3$.
 
 example:
     Tässä on pätkä Ukko Nooaa. {C4 C4 C4 E4 D4 D4 D4 F4 E4 E4 D4 D4 C4}
     Selvitetään sen äänet ensimmäiseen ääneen verrattuna.
 
     Kuunnellaan ensin neljää ensimmäistä ääntä. {C4 C4 C4 E4}
-    Olkoon $s$ ensimmäinen ääni. Se tulee kolme kertaa.
+    Olkoon $s \in \mathbb{Z}$ ensimmäinen ääni. Se tulee kolme kertaa.
     Seuraava ääni on neljän puolikkaan päässä ensimmäisestä (vertaa yllä olevaan intervallilistaan),
     joten se on $s+4$.
     $$
-    s,~ s,~ s,~ s+4
+    s,~ s,~ s,~ s+4, \dots
     $$
     Otetaan mukaan seuraava ääni, joka tulee kolmeen kertaan. {C4 C4 C4 E4 D4 D4 D4}
     Se on edellisten äänien puolessa välissä, siis $s+2$:
     $$
-    s,~ s,~ s,~ s+4,~ s+2,~ s+2,~ s+2
+    \begin{align}
+    &s,~ s,~ s,~ s+4, \\
+    &s+2,~ s+2,~ s+2, \dots
+    \end{align}
     $$
-    Näiden jälkeen tuleva ääni ei ole $s+6$ kuten voisi arvata,
+    Näiden jälkeen tuleva ääni ei ole $s+6$ {F#4} kuten voisi arvata,
     sillä sen kanssa Ukko Nooan alku kuulostaisi väärältä:
     {C4 C4 C4 E4 D4 D4 D4 F#4}
-    Oikea ääni on $s+5$, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
-    Ukko nooan äänet ovat siis:
+    Oikea ääni on $s+5$ {F4}, ja tämän jälkeen toistetaankin samoja ääniä kuin on aikaisemmin ollut.
+    Ukko Nooan äänet ovat siis:
     $$
-    s,~ s,~ s,~ s+4,~ s+2,~ s+2,~ s+2,~ s+5,~ s+4,~ s+4,~ s+2,~ s+2,~ s.
+    \begin{align}
+    &s,~ s,~ s,~ s+4, \\
+    & s+2,~ s+2,~ s+2,~ s+5, \\
+    &s+4,~ s+4,~ s+2,~ s+2,~ s.
+    \end{align}
     $$
 
 Äänenkorkeutta $s$ sanotaan *sävellajiksi*.
@@ -111,72 +114,141 @@ Eri sävellajilla $s$ koko Ukko Nooa siirtyy saman verran ylöspäin tai alaspä
 vaikkapa näin:
 {F#4 F#4 F#4 A#4 G#4 G#4 G#4 B4 A#4 A#4 G#4 G#4 F#4}
 
-Äänenkorkeuksiakin voi ajatella kokonaislukuina,
-jos sovitaan, mitä tarkoittaa vaikkapa äänenkorkeus 0
-ja ilmaistaan muut äänenkorkeudet vertaamalla siihen.
-Näin päästään puhtaasti kokonaisluvuilla laskemiseen ja merkinnät lyhenevät.
+Emme sopineet, mitä tarkoittaa vaikkapa äänenkorkeus 0.
+Tarkoitus onkin, että ääneksi 0 voi valita sellaisen äänen,
+että teorian pyörittämisestä tulee mahdollisimman yksinkertaista.
+Usein kannattaa ajatella, että ääni 0 tarkoittaa sävellajia.
+Kitaratabeissa nolla tarkoittaa sitä ääntä, joka kitaran kielestä lähtee kun se soi vapaana.
 
 example:
     Jos sovitaan, että Ukko Nooan ensimmäinen ääni on nolla, niin kaikki äänet ovat
     $$
     0,0,0,4,2,2,2,5,4,4,2,2,0.
     $$
-    Tämä näyttää nyt epäilyttävästi tiktokeilta,
-    joissa on selvästi feikkiä soittoa ja kasa randomeja numeroita.
-    Ehkä tiktokeissa yritettiin alun perin tehdä jotain tämän kaltaista.
-    Kitaratabulatuureissakin on myös kyse tästä:
-    siinä yhteydessä $0$ tarkoittaa alinta ääntä, joka kyseisestä kitaran kielestä lähtee.
+
+Tämä näyttää nyt epäilyttävästi tiktokeilta,
+joissa on selvästi feikkiä soittoa ja kasa randomeja numeroita.
+Ehkä tiktokeissa yritettiin alun perin tehdä jotain tämän kaltaista.
 
 
 ## Äänenkorkeuksien tavalliset nimet
 
 definition:
     Nimetään äänenkorkeudet näin:
-    - 440 Hz värähtelystä muodostuvan äänenkorkeuden nimi on $A_4$: {A4}
-    - $B_4 = A_4 + 2$
-    - $C_5 = B_4 + 1$
-    - $D_5 = C_5 + 2$
-    - $E_5 = D_5 + 2$
-    - $F_5 = E_5 + 1$
-    - $G_5 = F_5 + 2$
-    - Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin, eli $X_{n+1}=X_n+12$, missä $X$ on jokin kirjain välillä A-G.
-    - $\#$ nimessä tarkoittaa puolisävelaskelen verran korkeampaa ääntä.
-    - $b$ nimessä tarkoittaa puolisävelaskelen verran matalampaa ääntä.
-    - H tarkoittaa samaa kuin B, esimerkiksi $H_4 = B_4$.
 
-Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis
-$$
-\begin{align}
-&\quad\qquad\qquad\qquad\qquad\qquad\qquad\vdots \\
-&C_2,~C\#_2,~D_2,~D\#_2,~E_2,~F_2,~F\#_2,~G_2,~G\#_2,~A_2,~A\#_2,~B_2,~\\
-&C_3,~C\#_3,~D_3,~D\#_3,~E_3,~F_3,~F\#_3,~G_3,~G\#_3,~A_3,~A\#_3,~B_3,~\\
-&C_4,~C\#_4,~D_4,~D\#_4,~E_4,~F_4,~F\#_4,~G_4,~G\#_4,~A_4,~A\#_4,~B_4,~\\
-&C_5,~C\#_5,~D_5,~D\#_5,~E_5,~F_5,~F\#_5,~G_5,~G\#_5,~A_5,~A\#_5,~B_5,~\\
-&\quad\qquad\qquad\qquad\qquad\qquad\qquad\vdots
-\end{align}
-$$
-tai ekvivalentisti
-$$
-\begin{align}
-&\qquad\qquad\qquad\qquad\qquad\qquad\vdots \\
-&C_2,~Db_2,~D_2,~Eb_2,~E_2,~F_2,~Gb_2,~G_2,~Ab_2,~A_2,~Bb_2,~B_2,~\\
-&C_3,~Db_3,~D_3,~Eb_3,~E_3,~F_3,~Gb_3,~G_3,~Ab_3,~A_3,~Bb_3,~B_3,~\\
-&C_4,~Db_4,~D_4,~Eb_4,~E_4,~F_4,~Gb_4,~G_4,~Ab_4,~A_4,~Bb_4,~B_4,~\\
-&C_5,~Db_5,~D_5,~Eb_5,~E_5,~F_5,~Gb_5,~G_5,~Ab_5,~A_5,~Bb_5,~B_5,~\\
-&\qquad\qquad\qquad\qquad\qquad\qquad\vdots
-\end{align}
-$$
+    * 440 Hz värähtelystä muodostuvan äänenkorkeuden nimi on [A4].
+    * [B4] $=$ [A4] ${}+2$
+    * [C5] $=$ [B4] ${}+1$
+    * [D5] $=$ [C5] ${}+2$
+    * [E5] $=$ [D5] ${}+2$
+    * [F5] $=$ [E5] ${}+1$
+    * [G5] $=$ [F5] ${}+2$
+    * Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin, eli $X_{n+1}=X_n+12$, missä $X$ on jokin kirjain välillä A-G.
+    * **Ylennysmerkki** $\#$ tarkoittaa puolisävelaskelen verran korkeampaa ääntä.
+    * **Alennusmerkki** $b$ tarkoittaa puolisävelaskelen verran matalampaa ääntä.
+    * H tarkoittaa samaa kuin B, esimerkiksi $H_4 = B_4$.
+
+Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis:
+
+python:
+    yield '<div style="display: grid; justify-items: center; width: fit-content; margin-left:auto; margin-right:auto">'
+    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    for n in (2, 3, 4, 5):
+        for x, note in enumerate('C C# D D# E F F# G G# A A# B'.split(), start=1):
+            yield f'<span style="grid-column: {x}; grid-row: {n}">'
+            yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
+            yield '</span>'
+    yield '</div>'
+
+tai ekvivalentisti:
+
+python:
+    yield '<div style="display: grid; justify-items: center; width: fit-content; margin-left:auto; margin-right:auto">'
+    yield r'<span style="grid-row: 1; grid-column: 1 / span 12">$\vdots$</span>'
+    yield r'<span style="grid-row: 6; grid-column: 1 / span 12">$\vdots$</span>'
+    for n in (2, 3, 4, 5):
+        for x, note in enumerate('C Db D Eb E F Gb G Ab A Bb B'.split(), start=1):
+            yield f'<span style="grid-column: {x}; grid-row: {n}">'
+            yield from builder.converter.convert_chunk('[' + note + str(n) + ']', filename)
+            yield '</span>'
+    yield '</div>'
+
 Tässä nimeämisessä on taustalla duuriasteikot ja molliasteikot, jotka määritellään myöhemmin.
 Käytännössä äänien nimeäminen näin on usein juuri niin kökköä kuin voisi arvata.
 Käytän sitä itse lähinnä muiden muusikoiden kanssa kommunikointiin ja kitaran viritysmittarin lukemiseen.
 
+Jokaisella oktaavilla (rivillä) tarvittiin alennusta tai ylennystä viiteen ääneen,
+ja loput 7 ilmaistiin pelkällä kirjaimella ja numerolla.
+Toisaalta pianossa on jokaista oktaavia kohti 5 mustaa kosketinta ja 7 valkoista.
+Valkoiset koskettimet vastaavat juurikin niitä ääniä, jotka voidaan ilmaista ilman ylennyksiä tai alennuksia.
+
 example:
-    Tässä on Ukko Nooa, jonka ensimmäinen ääni on $D_4$. {D4 D4 D4 F#4 E4 E4 E4 G4 F#4 F#4 E4 E4 D4} Sen äänet ovat
+    Jos Ukko Nooan ensimmäinen ääni on [D4], niin kaikki äänet ovat
+
+    center:
+        [D4] [D4] [D4] [F#4] [E4] [E4] [E4] [G4] [F#4] [F#4] [E4] [E4] [D4].
+
+    Hassuista #-merkeistä päästään eroon aloittamalla Ukko Nooa vaikkapa äänestä [G4]. Silloin äänet ovat
+
+    center:
+        [G4] [G4] [G4] [B4] [A4] [A4] [A4] [C5] [B4] [B4] [A4] [A4] [G4].
+
+    Huomaa keskellä oleva [C5]. Se ei ole [C4], koska [C4] olisi oktaavin liian matala.
+
+
+## Jäännösluokat modulo 12
+
+Usein oktaavin eroista ei kannata välittää,
+eli ääniä [C3], [C4], [C5] jne ajatellaan samoina.
+Määritellään tämä täsmällisesti niin, että merkintä $C$ tarkoittaa joukkoa,
+jossa on kaikki $C$-kirjaimella nimetyt äänet.
+
+definition:
+    Äänenkorkeuden $k \in \mathbb{Z}$ **jäännösluokka** modulo 12 on joukko
     $$
-    D_4,D_4,D_4,F\#_4,E_4,E_4,E_4,G_4,F\#_4,F\#_4,E_4,E_4,D_4.
+    \overline{k} = \{ k+12n ~|~ n \in \mathbb{Z} \},
     $$
-    Tässä Ukko Nooassa ensimmäinen ääni on $G_4$. {G4 G4 G4 B4 A4 A4 A4 C5 B4 B4 A4 A4 G4} Kaikki äänet ovat
+    eli niiden äänien joukko, jotka ovat jonkin määrän oktaaveja päästä äänestä $k$.
+    Merkitään jäännösluokkia samoin kuin ääniä mutta pelkillä kirjaimilla, eli esimerkiksi
     $$
-    G_4,G_4,G_4,B_4,A_4,A_4,A_4,C_5,B_4,B_4,A_4,A_4,G_4.
+    C = \overline{C_n} = \{ \dots, C_{-2}, C_{-1}, C_0, C_1, C_2, C_3, \dots \}.
     $$
-    Huomaa keskellä oleva $C_5$. Se ei ole $C_4$, koska $C_4$ olisi kaukana muista äänistä, oktaavin liian matala.
+    Määritellään jäännösluokan $k$ ja kokonaisluvun $n$ yhteenlasku
+    $$
+    \overline{k} + n = \overline{k+n},
+    $$
+    ja merkitään $X\#=X+1$ ja $Xb=X-1$, missä $X$ on jokin kirjain välillä A-G.
+    Kaikkien jäännösluokkien joukko on
+
+    center:
+        $\mathbb{Z}_{12} = \{$ [A],[A#],[B],[C],[C#],[D],[D#],[E],[F],[F#],[G],[G#] $\}.$
+
+Jäännösluokkien määritelmä ja yhteenlasku on otettu suoraan algebran peruskursseilta.
+Kyseessä on tavallinen modulaarinen yhteenlasku.
+
+Jäännösluokkia on usein helpompi ajatella kuin äänenkorkeuksia,
+koska on vain 12 eri jäännösluokkaa,
+ja kun jäännösluokan on löytänyt, niin sopiva äänenkorkeus löytyy kokeilemalla.
+Esimerkiksi kitaristeille on parempi sanoa "soita G-duuri" kuin "soita G4-duuri".
+
+example:
+    Olkoon $s \in \mathbb{Z}_{12}$ Ukko Nooan ensimmäistä ääntä vastaava jäännösluokka.
+    Tällöin kaikki äänet ovat
+    $$
+    \begin{align}
+    &s,~ s,~ s,~ s+4, \\
+    & s+2,~ s+2,~ s+2,~ s+5, \\
+    &s+4,~ s+4,~ s+2,~ s+2,~ s.
+    \end{align}
+    $$
+    Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan
+
+    center:
+        [C] [C] [C] [E] [D] [D] [D] [F] [E] [E] [D] [D] [C].
+
+Koska kellotaulussa on 12 numeroa,
+niin jäännösluokat voi visualisoida piirtämällä ne kellotaulun ympärille.
+Laitetaan vaikkapa $A$ kahteentoista, $A\#$ ykköseen jne:
+
+TODO: hieno html nappiviritys missä kellotaulun numeroita voi kliksutella

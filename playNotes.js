@@ -20,38 +20,40 @@ function noteToFrequency(noteName) {
   return 440 * Math.pow(2, shiftFromA4 / 12);
 }
 
-let audioParams = null;
+let audioContext = null;
+let oscillatorNode = null;
+let gainNode = null;
 
 function playNotes(noteString) {
-  if (!audioParams) {
-    const audioCtx = new AudioContext();
-    const oscillatorNode = new OscillatorNode(audioCtx, {frequency: 0, type: "sine"});
-    const gainNode = new GainNode(audioCtx);
-    audioParams = {ctx: audioCtx, freq: oscillatorNote.frequency, gain: gainNode.gain};
+  if (!audioContext && !oscillatorNode && !gainNode) {
+    audioContext = new AudioContext();
+    oscillatorNode = new OscillatorNode(audioContext, {frequency: 0, type: "sine"});
+    gainNode = new GainNode(audioContext);
+    oscillatorNode.start();
   }
 
-  oscillator.frequency.cancelScheduledValues(audioParams.ctx.currentTime);
-  gain.frequency.cancelScheduledValues(audioParams.ctx.currentTime);
+  oscillatorNode.frequency.cancelScheduledValues(audioContext.currentTime);
+  gainNode.gain.cancelScheduledValues(audioContext.currentTime);
 
   const noteDuration = 0.5;
   const volume = 0.5;
 
-  const playingStartTime = audioParams.ctx.currentTime + 0.050;
+  const playingStartTime = audioContext.currentTime + 0.050;
 
   noteString.split(" ").map(noteToFrequency).forEach((freq, idx) => {
-    const noteStart = playingStartTime + idx*noteDuration;
-    const fadeoutStartTime = noteStart + 0.80*noteDuration;
-    const fadeoutEndTime = noteStart + 0.80*noteDuration;
+    const fadeInStart = playingStartTime + idx*noteDuration;
+    const fadeInEnd = fadeInStart + 0.01*noteDuration;
+    const fadeOutStart = fadeInStart + 0.80*noteDuration;
+    const fadeOutEnd = fadeInStart + 0.90*noteDuration;
 
-    oscillator.frequency.setValueAtTime(freq, noteStart);
-    gainNode.gain.setValueAtTime(volume, noteStart);
-    gainNode.gain.setValueAtTime(volume, noteStart + fadeoutStartTime);
-    gainNode.gain.linearRampToValueAtTime(0, noteStart + fadeoutEndTime);
+    oscillatorNode.frequency.setValueAtTime(freq, fadeInStart);
 
-    osc.start(noteStartTime);
-    osc.stop(noteStartTime + noteDuration);
+    gainNode.gain.setValueAtTime(0, fadeInStart);
+    gainNode.gain.linearRampToValueAtTime(volume, fadeInEnd);
+    gainNode.gain.setValueAtTime(volume, fadeOutStart);
+    gainNode.gain.linearRampToValueAtTime(0, fadeOutEnd);
   });
 
-  osc.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
+  oscillatorNode.connect(gainNode);
+  gainNode.connect(audioContext.destination);
 }

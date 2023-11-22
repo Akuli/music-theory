@@ -1,0 +1,47 @@
+html {
+    color: white;
+    background-color: #333;
+}
+
+body {
+    margin: 10px 10px 10px 10px;
+}
+
+.headerlink {
+    color: #4d4d4d;
+}
+
+#content {
+    padding: 10px;
+    max-width: 50em;
+}
+
+a {
+    color: #067;
+    border-bottom: 1px dotted;
+    text-decoration: none;   /* taken care of with the border-bottom thing */
+}
+
+a:hover {
+    color: #852;
+    border-bottom: 1px solid;
+}
+
+.box {
+    border-radius: 10px;
+    padding: 15px;
+}
+.definition { background-color: #1c1c1c; }
+.theorem { background-color: #110fbd; }
+.proof { background-color: #2b538f; }
+.example { background-color: #5c3761; }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quicksand;
+}
+
+p, li, #sidebar {
+    font-family: Cabin;
+    font-size: 1em;
+    line-height: 140%;
+}

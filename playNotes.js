@@ -23,7 +23,7 @@ function noteToFrequency(noteName) {
 const NUMBER_OF_OSCILLATORS = 10;
 
 function noteSpecToFrequenciesAndVolumes(noteSpec) {
-  if (/[0-9]/.test(noteSpec)) {
+  if (/[0-9]/.test(noteSpec) || noteSpec === ".") {
     // single note, e.g. C5
     return [{frequency: noteToFrequency(noteSpec), volume: 0.6}];
   }

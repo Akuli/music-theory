@@ -82,8 +82,7 @@ function playNotes(noteString) {
     const fadeOutStart = fadeInStart + 0.80*noteDuration;
     const fadeOutEnd = fadeInStart + 0.90*noteDuration;
 
-    let freqsAndVols = noteSpecToFrequenciesAndVolumes(noteSpec);
-    console.log(freqsAndVols);
+    const freqsAndVols = noteSpecToFrequenciesAndVolumes(noteSpec);
 
     for (let i = 0; i < NUMBER_OF_OSCILLATORS; i++) {
       const {frequency, volume} = freqsAndVols[i] || {frequency: 0, volume: 0};

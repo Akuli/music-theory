@@ -144,11 +144,11 @@ definition:
     * [F5] $=$ [E5] ${}+1$
     * [G5] $=$ [F5] ${}+2$
     * Numeron kasvattaminen yhdellä muuttaa äänenkorkeutta oktaavin verran ylöspäin, eli $X_{n+1}=X_n+12$, missä $X$ on jokin kirjain välillä A-G.
-    * **Ylennysmerkki** $\#$ tarkoittaa puolisävelaskelen verran korkeampaa ääntä.
-    * **Alennusmerkki** $b$ tarkoittaa puolisävelaskelen verran matalampaa ääntä.
+    * **Ylennysmerkki** $\#$ tarkoittaa puolisävelaskelen verran korkeampaa ääntä: $X\#_n=X_n+1$
+    * **Alennusmerkki** $b$ tarkoittaa puolisävelaskelen verran matalampaa ääntä: $Xb_n=X_n-1$
     * H tarkoittaa samaa kuin B, esimerkiksi $H_4 = B_4$.
 
-Kaikki äänenkorkeudet puolisävelaskelen välein ovat siis:
+Kaikki äänenkorkeudet puolisävelaskelen välein ovat:
 
 center:
     python:
@@ -208,7 +208,7 @@ Siinä on taustalla C-duuriasteikko ja A-molliasteikko, jotka määritellään m
 
 Usein oktaavin eroista ei kannata välittää,
 eli ääniä [C3], [C4], [C5] jne ajatellaan samoina.
-Määritellään tämä täsmällisesti niin, että merkintä $C$ tarkoittaa joukkoa,
+Määritellään tämä täsmällisesti niin, että merkintä [C] tarkoittaa joukkoa,
 jossa on kaikki $C$-kirjaimella nimetyt äänet.
 
 definition:
@@ -216,7 +216,7 @@ definition:
     $$
     \overline{k} = \{ k+12n ~|~ n \in \mathbb{Z} \},
     $$
-    eli niiden äänien joukko, jotka ovat jonkin määrän oktaaveja päästä äänestä $k$.
+    eli sellaisten äänien joukko, joiden etäisyys ääneen $k$ on jokin kokonaislukumäärä oktaaveja.
     Merkitään jäännösluokkia samoin kuin ääniä mutta pelkillä kirjaimilla, eli esimerkiksi
     $$
     C = \overline{C_n} = \{ \dots, C_{-2}, C_{-1}, C_0, C_1, C_2, C_3, \dots \}.

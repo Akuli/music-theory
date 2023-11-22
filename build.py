@@ -6,7 +6,7 @@ from htmlthingy import Builder
 
 builder = Builder()
 builder.infiles = ['content.txt']
-builder.infile2outfile = lambda infile: "html/musamatikka.html"
+builder.infile2outfile = lambda infile: "html/index.html"
 builder.additional_files = []
 
 mathjax_config = '''

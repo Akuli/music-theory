@@ -112,42 +112,80 @@ div.all-notes-table {
   return 440 * Math.pow(2, shiftFromA4 / 12);
 }
 
+const NUMBER_OF_OSCILLATORS = 10;
+
+function noteSpecToFrequenciesAndVolumes(noteSpec) {
+  if (/[0-9]/.test(noteSpec)) {
+    // single note, e.g. C5
+    return [{frequency: noteToFrequency(noteSpec), volume: 0.6}];
+  }
+  else {
+    // congruence class that refers to multiple notes, e.g. "C"
+    const result = [];
+    for (let i = 0; i < NUMBER_OF_OSCILLATORS; i++) {
+      // "C" --> C0, C1, C2, ...
+      const frequency = noteToFrequency(noteSpec + i);
+
+      // Volume is biggest when near 1kHz, and gets smaller as we go further out in gaussian style.
+      // Constants must be so that the sum of all waves does not exceed 1, at least not very much.
+      const volume = 0.39 * Math.exp(-0.5*Math.pow(Math.log2(frequency / 1000), 2));
+
+      result.push({frequency, volume});
+    }
+
+    return result;
+  }
+}
+
 let audioContext = null;
-let oscillatorNode = null;
-let gainNode = null;
+const oscillatorNodes = Array(NUMBER_OF_OSCILLATORS);
+const gainNodes = Array(NUMBER_OF_OSCILLATORS);
 
 function playNotes(noteString) {
-  if (!audioContext && !oscillatorNode && !gainNode) {
+  if (!audioContext) {
     audioContext = new AudioContext();
-    oscillatorNode = new OscillatorNode(audioContext, {frequency: 0, type: "sine"});
-    gainNode = new GainNode(audioContext);
-    oscillatorNode.start();
+    for (let i = 0; i < NUMBER_OF_OSCILLATORS; i++) {
+      oscillatorNodes[i] = new OscillatorNode(audioContext, {frequency: 0, type: "sine"});
+      gainNodes[i] = new GainNode(audioContext);
+
+      oscillatorNodes[i].connect(gainNodes[i]);
+      gainNodes[i].connect(audioContext.destination);
+
+      gainNodes[i].gain.value = 0;
+      oscillatorNodes[i].start();
+    }
   }
 
-  oscillatorNode.frequency.cancelScheduledValues(audioContext.currentTime);
-  gainNode.gain.cancelScheduledValues(audioContext.currentTime);
+  // Stop all oscillators
+  for (const gain of gainNodes) {
+    gain.gain.value = 0;
+    gain.gain.cancelScheduledValues(audioContext.currentTime);
+  }
+  for (const osc of oscillatorNodes) {
+    osc.frequency.cancelScheduledValues(audioContext.currentTime);
+  }
 
   const noteDuration = 0.5;
-  const volume = 0.5;
-
   const playingStartTime = audioContext.currentTime + 0.050;
 
-  noteString.split(" ").map(noteToFrequency).forEach((freq, idx) => {
+  noteString.split(" ").forEach((noteSpec, idx) => {
     const fadeInStart = playingStartTime + idx*noteDuration;
     const fadeInEnd = fadeInStart + 0.01*noteDuration;
     const fadeOutStart = fadeInStart + 0.80*noteDuration;
     const fadeOutEnd = fadeInStart + 0.90*noteDuration;
 
-    oscillatorNode.frequency.setValueAtTime(freq, fadeInStart);
+    let freqsAndVols = noteSpecToFrequenciesAndVolumes(noteSpec);
+    console.log(freqsAndVols);
 
-    gainNode.gain.setValueAtTime(0, fadeInStart);
-    gainNode.gain.linearRampToValueAtTime(volume, fadeInEnd);
-    gainNode.gain.setValueAtTime(volume, fadeOutStart);
-    gainNode.gain.linearRampToValueAtTime(0, fadeOutEnd);
+    for (let i = 0; i < NUMBER_OF_OSCILLATORS; i++) {
+      const {frequency, volume} = freqsAndVols[i] || {frequency: 0, volume: 0};
+      oscillatorNodes[i].frequency.setValueAtTime(frequency, fadeInStart);
+      gainNodes[i].gain.setValueAtTime(0, fadeInStart);
+      gainNodes[i].gain.linearRampToValueAtTime(volume, fadeInEnd);
+      gainNodes[i].gain.setValueAtTime(volume, fadeOutStart);
+      gainNodes[i].gain.linearRampToValueAtTime(0, fadeOutEnd);
+    }
   });
-
-  oscillatorNode.connect(gainNode);
-  gainNode.connect(audioContext.destination);
 }
 </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
@@ -324,7 +362,7 @@ Siinä on taustalla C-duuriasteikko ja A-molliasteikko, jotka määritellään m
 
 <h2 id="jäännösluokat-modulo-12">Jäännösluokat modulo 12<a class="headerlink" href="#jäännösluokat-modulo-12" title="Link to this title">¶</a></h2><p>Usein oktaavin eroista ei kannata välittää,
 eli esimerkiksi ääniä <button onclick="playNotes('C4')">$C_{4}$</button>, <button onclick="playNotes('C5')">$C_{5}$</button>, <button onclick="playNotes('C6')">$C_{6}$</button> jne ajatellaan samoina.
-Määritellään tämä täsmällisesti niin, että merkintä <button onclick="playNotes('C5')">$C$</button> tarkoittaa joukkoa,
+Määritellään tämä täsmällisesti niin, että merkintä <button onclick="playNotes('C')">$C$</button> tarkoittaa joukkoa,
 jossa on kaikki $C$-kirjaimella nimetyt äänet.</p>
 
 <div class="box definition"><h4>Määritelmä</h4><p>Äänenkorkeuden $k \in \mathbb{Z}$ <b>jäännösluokka</b> modulo 12 on joukko
@@ -343,7 +381,7 @@ $$
 ja merkitään $X\#=X+1$ ja $Xb=X-1$, missä $X$ on jokin kirjain välillä A-G.
 Kaikkien jäännösluokkien joukko on</p>
 
-<div class="center"><p>$\mathbb{Z}_{12} = \{$ <button onclick="playNotes('A4')">$A$</button>,<button onclick="playNotes('A#4')">$A\#$</button>,<button onclick="playNotes('B4')">$B$</button>,<button onclick="playNotes('C5')">$C$</button>,<button onclick="playNotes('C#5')">$C\#$</button>,<button onclick="playNotes('D5')">$D$</button>,<button onclick="playNotes('D#5')">$D\#$</button>,<button onclick="playNotes('E5')">$E$</button>,<button onclick="playNotes('F5')">$F$</button>,<button onclick="playNotes('F#5')">$F\#$</button>,<button onclick="playNotes('G5')">$G$</button>,<button onclick="playNotes('G#5')">$G\#$</button> $\}.$
+<div class="center"><p>$\mathbb{Z}_{12} = \{$ <button onclick="playNotes('A')">$A$</button>,<button onclick="playNotes('A#')">$A\#$</button>,<button onclick="playNotes('B')">$B$</button>,<button onclick="playNotes('C')">$C$</button>,<button onclick="playNotes('C#')">$C\#$</button>,<button onclick="playNotes('D')">$D$</button>,<button onclick="playNotes('D#')">$D\#$</button>,<button onclick="playNotes('E')">$E$</button>,<button onclick="playNotes('F')">$F$</button>,<button onclick="playNotes('F#')">$F\#$</button>,<button onclick="playNotes('G')">$G$</button>,<button onclick="playNotes('G#')">$G\#$</button> $\}.$
 </p>
 
 </div></div><p>Jäännösluokkien määritelmä ja yhteenlasku on otettu suoraan algebran peruskursseilta.
@@ -360,18 +398,18 @@ niin jäännösluokat voi visualisoida piirtämällä ne kellotaulun ympärille.
 Laitetaan vaikkapa $A$ kahteentoista, $A\#$ ykköseen jne:</p>
 
 <div class="center"><p><div class="clock">
-    <button onclick="playNotes('A4')">$A$</button>
-    <button onclick="playNotes('A#4')">$A\#$<br>$Bb$</button>
-    <button onclick="playNotes('B4')">$B$</button>
-    <button onclick="playNotes('C5')">$C$</button>
-    <button onclick="playNotes('C#5')">$C\#$<br>$Db$</button>
-    <button onclick="playNotes('D5')">$D$</button>
-    <button onclick="playNotes('D#5')">$D\#$<br>$Eb$</button>
-    <button onclick="playNotes('E5')">$E$</button>
-    <button onclick="playNotes('F5')">$F$</button>
-    <button onclick="playNotes('F#5')">$F\#$<br>$Gb$</button>
-    <button onclick="playNotes('G5')">$G$</button>
-    <button onclick="playNotes('G#5')">$G\#$<br>$Ab$</button>
+    <button onclick="playNotes('A')">$A$</button>
+    <button onclick="playNotes('A#')">$A\#$<br>$Bb$</button>
+    <button onclick="playNotes('B')">$B$</button>
+    <button onclick="playNotes('C')">$C$</button>
+    <button onclick="playNotes('C#')">$C\#$<br>$Db$</button>
+    <button onclick="playNotes('D')">$D$</button>
+    <button onclick="playNotes('D#')">$D\#$<br>$Eb$</button>
+    <button onclick="playNotes('E')">$E$</button>
+    <button onclick="playNotes('F')">$F$</button>
+    <button onclick="playNotes('F#')">$F\#$<br>$Gb$</button>
+    <button onclick="playNotes('G')">$G$</button>
+    <button onclick="playNotes('G#')">$G\#$<br>$Ab$</button>
 </div>
 </p>
 
@@ -388,7 +426,7 @@ $$
 $$
 Jos ensimmäinen ääni on vaikkapa jäännösluokassa $C$, niin saadaan</p>
 
-<div class="center"><p><button onclick="playNotes('C5')">$C$</button> <button onclick="playNotes('C5')">$C$</button> <button onclick="playNotes('C5')">$C$</button> <button onclick="playNotes('E5')">$E$</button> <button onclick="playNotes('D5')">$D$</button> <button onclick="playNotes('D5')">$D$</button> <button onclick="playNotes('D5')">$D$</button> <button onclick="playNotes('F5')">$F$</button> <button onclick="playNotes('E5')">$E$</button> <button onclick="playNotes('E5')">$E$</button> <button onclick="playNotes('D5')">$D$</button> <button onclick="playNotes('D5')">$D$</button> <button onclick="playNotes('C5')">$C$</button>.
+<div class="center"><p><button onclick="playNotes('C')">$C$</button> <button onclick="playNotes('C')">$C$</button> <button onclick="playNotes('C')">$C$</button> <button onclick="playNotes('E')">$E$</button> <button onclick="playNotes('D')">$D$</button> <button onclick="playNotes('D')">$D$</button> <button onclick="playNotes('D')">$D$</button> <button onclick="playNotes('F')">$F$</button> <button onclick="playNotes('E')">$E$</button> <button onclick="playNotes('E')">$E$</button> <button onclick="playNotes('D')">$D$</button> <button onclick="playNotes('D')">$D$</button> <button onclick="playNotes('C')">$C$</button>.
 </p>
 
 </div></div><h2 id="duuriasteikko-ja-molliasteikko">Duuriasteikko ja molliasteikko<a class="headerlink" href="#duuriasteikko-ja-molliasteikko" title="Link to this title">¶</a></h2><div class="box definition"><h4>Määritelmä</h4><p>Olkoon $j \in \mathbb{Z}_{12}$ jäännösluokka. Tällöin <b>$j$-duuriasteikko</b> on joukko
@@ -403,23 +441,23 @@ $$
 
 </div><div class="box example"><h4>Esimerkki</h4><p>C-duuriasteikko on</p>
 
-<div class="center"><p>$C\duuri = \{$ <button onclick="playNotes('C5')">$C$</button>, <button onclick="playNotes('D5')">$D$</button>, <button onclick="playNotes('E5')">$E$</button>, <button onclick="playNotes('F5')">$F$</button>, <button onclick="playNotes('G5')">$G$</button>, <button onclick="playNotes('A4')">$A$</button>, <button onclick="playNotes('B4')">$B$</button> $\}$,
+<div class="center"><p>$C\duuri = \{$ <button onclick="playNotes('C')">$C$</button>, <button onclick="playNotes('D')">$D$</button>, <button onclick="playNotes('E')">$E$</button>, <button onclick="playNotes('F')">$F$</button>, <button onclick="playNotes('G')">$G$</button>, <button onclick="playNotes('A')">$A$</button>, <button onclick="playNotes('B')">$B$</button> $\}$,
 </p>
 
 </div><p>ja C-molliasteikko on</p>
 
-<div class="center"><p>$C\molli = \{$ <button onclick="playNotes('C5')">$C$</button>, <button onclick="playNotes('D5')">$D$</button>, <button onclick="playNotes('Eb5')">$Eb$</button>, <button onclick="playNotes('F5')">$F$</button>, <button onclick="playNotes('G5')">$G$</button>, <button onclick="playNotes('Ab4')">$Ab$</button>, <button onclick="playNotes('Bb4')">$Bb$</button> $\}$.
+<div class="center"><p>$C\molli = \{$ <button onclick="playNotes('C')">$C$</button>, <button onclick="playNotes('D')">$D$</button>, <button onclick="playNotes('Eb')">$Eb$</button>, <button onclick="playNotes('F')">$F$</button>, <button onclick="playNotes('G')">$G$</button>, <button onclick="playNotes('Ab')">$Ab$</button>, <button onclick="playNotes('Bb')">$Bb$</button> $\}$.
 </p>
 
 </div></div><p>Tässä duuriasteikon muodostamiseen tarvittiin alennuksia ja molliasteikkoon ei tarvittu.
 Näin ei välttämättä ole. Seuraavassa esimerkissä nämä menevät juurikin päinvastoin.</p>
 
-<div class="box example"><h4>Esimerkki</h4><div class="center"><p>$A\duuri = \{$ <button onclick="playNotes('A4')">$A$</button>, <button onclick="playNotes('B4')">$B$</button>, <button onclick="playNotes('C#5')">$C\#$</button>, <button onclick="playNotes('D5')">$D$</button>, <button onclick="playNotes('E5')">$E$</button>, <button onclick="playNotes('F#5')">$F\#$</button>, <button onclick="playNotes('G#5')">$G\#$</button> $\}$
+<div class="box example"><h4>Esimerkki</h4><div class="center"><p>$A\duuri = \{$ <button onclick="playNotes('A')">$A$</button>, <button onclick="playNotes('B')">$B$</button>, <button onclick="playNotes('C#')">$C\#$</button>, <button onclick="playNotes('D')">$D$</button>, <button onclick="playNotes('E')">$E$</button>, <button onclick="playNotes('F#')">$F\#$</button>, <button onclick="playNotes('G#')">$G\#$</button> $\}$
 </p>
 
 </div><p>ja</p>
 
-<div class="center"><p>$A\molli = \{$ <button onclick="playNotes('A4')">$A$</button>, <button onclick="playNotes('B4')">$B$</button>, <button onclick="playNotes('C5')">$C$</button>, <button onclick="playNotes('D5')">$D$</button>, <button onclick="playNotes('E5')">$E$</button>, <button onclick="playNotes('F5')">$F$</button>, <button onclick="playNotes('G5')">$G$</button> $\}$.
+<div class="center"><p>$A\molli = \{$ <button onclick="playNotes('A')">$A$</button>, <button onclick="playNotes('B')">$B$</button>, <button onclick="playNotes('C')">$C$</button>, <button onclick="playNotes('D')">$D$</button>, <button onclick="playNotes('E')">$E$</button>, <button onclick="playNotes('F')">$F$</button>, <button onclick="playNotes('G')">$G$</button> $\}$.
 </p>
 
 </div></div><p>Ehkä äänten nimeäminen tuntuu nyt vähän järkevämmältä:

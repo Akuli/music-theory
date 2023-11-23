@@ -299,6 +299,11 @@ definition:
     $$
     Jäännösluokkaa $j$ sanotaan asteikon **juureksi**.
 
+Asteikkojen idea on, että asteikon ääniin rajoittuminen tekee säveltämisestä helpompaa.
+Esimerkiksi kaikki Ukko Nooan äänet ovat $s$, $s+2$, $s+4$ ja $s+5$,
+missä $s$ on ensimmäinen ääni.
+Nämä ovat $s$-duuriasteikon ääniä.
+
 example:
     C-duuriasteikko on
 
@@ -344,9 +349,7 @@ Ne ovat eri järjestyksessä, mutta se ei haittaa, koska kyseessä on joukkojen 
 ja joukoissa järjestyksellä ei ole merkitystä.
 
 Tällaisia yllättäviä yhtäsuuruuksia ei kuitenkaan saada
-kahdella duuriasteikolla tai kahdella molliasteikolla.
-Tämä tuntuu muusikkokokemuksen perusteella selvältä,
-mutta täsmällisestä todistuksesta tulee helposti matemaattista kikkailua.
+kahdella duuriasteikolla tai kahdella molliasteikolla:
 
 theorem:
     Duuriasteikon juuri on yksikäsitteinen,
@@ -354,36 +357,26 @@ theorem:
     niin $j_1\duuri \ne j_2\duuri$.
 
     proof:
-        Asteikosta ei voi ottaa pienintä alkiota,
-        koska jäännösluokille ei voi määritellä järkevästi toimivaa suuruusvertailua:
-        tuntuisi luontevalta sanoa vaikkapa $j < j+5$ ja $j+5 < j+12$,
-        mutta tämä olisi ristiriita sillä $j=j+12$.
-        Ideana on bongata asteikosta peräkkäiset äänet (kahdessa paikassa)
-        ja valita niistä toinen.
-
-        Tehdään vastaoletus, että $j_1 \ne j_2$ mutta $j_1\duuri = j_2\duuri$.
-        Merkitään
+        Tähän riittää, että kun $j$-duuriasteikko on annettu joukkona,
+        niin voidaan päätellä, mikä $j$ oli.
+        Etsitään ensin joukosta kahden peräkkäisen äänen esiintymät.
+        Näitä on kaksi: $j+4,j+5$ ja $j+11,j+12$.
+        Otetaan pareista vaikka jälkimmäiset alkiot $j+5$ ja $j+12$.
+        Ne eivät ole keskenään symmetrisessä asemassa:
         $$
-        f(S) = \{ x \in \mathbb{Z}_{12} ~|~ x,x+1,x+7 \in S \},
+        \begin{align}
+        &(j+5)-(j+12) = 5-12 = 5 \\
+        &(j+12)-(j+5) = 12-5 = 7 \ne 5
+        \end{align}
         $$
-        missä $S \subseteq \mathbb{Z}_{12}$.
-        Ainoat peräkkäiset alkiot duuriasteikossa ovat $j+4,j+5$ ja $j+11,j+12$.
-        Koska
-        $$
-        j+4+7=j+11 \in j\duuri \quad \text{ja} \quad j+11+7 = j+18 = j+6 \notin j\duuri,
-        $$
-        niin $f(j\duuri) = \{ j+4 \}$. Nyt saadaan
-        $$
-        \{ j_1+4 \} = f(j_1\duuri) = f(j_2\duuri) = \{ j_2+4 \},
-        $$
-        josta seuraa ristiriita $j_1 = j_2$.
+        Jos siis tiedetään, että kaksi annettua jäännösluokkaa ovat $j+5$ ja $j+12$,
+        niin voidaan päätellä, kumpi annetuista jäännösluokista on $j+12$.
+        Koska $j+12 = j$, niin juuri löydettiin.
 
 theorem:
     Molliasteikon juuri on yksikäsitteinen.
 
     proof:
-        Olkoot $j_1$ ja $j_2$ eri juuria.
-        Koska $j_1+3 \ne j_2+3$, niin edellisellä lauseella saadaan
-        $$
-        j_1\molli = (j_1+3)\duuri \ne (j_2+3)\duuri = j_2\molli.
-        $$
+        Koska $j\molli = (j+3)\duuri$,
+        niin annetusta $j$-molliasteikkojoukosta voidaan edellisen lauseen mukaan päätellä $j+3$.
+        Tästä on helppo laskea $j$.

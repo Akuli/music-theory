@@ -362,7 +362,7 @@ theorem:
         Etsitään ensin joukosta kahden peräkkäisen äänen esiintymät.
         Näitä on kaksi: $j+4,j+5$ ja $j+11,j+12$.
         Otetaan pareista vaikka jälkimmäiset alkiot $j+5$ ja $j+12$.
-        Ne eivät ole keskenään symmetrisessä asemassa:
+        Ne eivät ole keskenään symmetrisesti:
         $$
         \begin{align}
         &(j+5)-(j+12) = 5-12 = 5 \\

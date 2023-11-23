@@ -38,7 +38,8 @@ a:hover {
 .box {
     border-radius: 0.5em;
     padding: 1em;
-    margin: 0.3em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 .definition { background-color: #1c1c1c; }
 .theorem { background-color: #110fbd; }
@@ -436,9 +437,15 @@ ja <b>$j$-molliasteikko</b> on
 $$
 j\molli = \{ j, j+2, j+3, j+5, j+7, j+8, j+10 \}.
 $$
+Jäännösluokkaa $j$ sanotaan asteikon <b>juureksi</b>.
 </p>
 
-</div><div class="box example"><h4>Esimerkki</h4><p>C-duuriasteikko on</p>
+</div><p>Asteikkojen idea on, että asteikon ääniin rajoittuminen tekee säveltämisestä helpompaa.
+Esimerkiksi kaikki Ukko Nooan äänet ovat $s$, $s+2$, $s+4$ ja $s+5$,
+missä $s$ on ensimmäinen ääni.
+Nämä ovat $s$-duuriasteikon ääniä.</p>
+
+<div class="box example"><h4>Esimerkki</h4><p>C-duuriasteikko on</p>
 
 <div class="center"><p>$C\duuri = \{$ <button onclick="playNotes('C')">$C$</button>, <button onclick="playNotes('D')">$D$</button>, <button onclick="playNotes('E')">$E$</button>, <button onclick="playNotes('F')">$F$</button>, <button onclick="playNotes('G')">$G$</button>, <button onclick="playNotes('A')">$A$</button>, <button onclick="playNotes('B')">$B$</button> $\}$,
 </p>
@@ -477,9 +484,39 @@ $$
 
 </div></div><p>Esimerkiksi C-duurissa on samat äänet kuin A-mollissa.
 Ne ovat eri järjestyksessä, mutta se ei haittaa, koska kyseessä on joukkojen yhtäsuuruus
-ja joukoissa järjestyksellä ei ole merkitystä.
+ja joukoissa järjestyksellä ei ole merkitystä.</p>
+
+<p>Tällaisia yllättäviä yhtäsuuruuksia ei kuitenkaan saada
+kahdella duuriasteikolla tai kahdella molliasteikolla:</p>
+
+<div class="box theorem"><h4>Lause</h4><p>Duuriasteikon juuri on yksikäsitteinen,
+eli jos $j_1$ ja $j_2$ ovat eri jäännösluokkia ($j_1,j_2 \in \mathbb{Z}_{12}$ ja $j_1 \ne j_2$),
+niin $j_1\duuri \ne j_2\duuri$.</p>
+
+<div class="box proof"><h4>Todistus</h4><p>Tähän riittää, että kun $j$-duuriasteikko on annettu joukkona,
+niin voidaan päätellä, mikä $j$ oli.
+Etsitään ensin joukosta kahden peräkkäisen äänen esiintymät.
+Näitä on kaksi: $j+4,j+5$ ja $j+11,j+12$.
+Otetaan pareista vaikka jälkimmäiset alkiot $j+5$ ja $j+12$.
+Ne eivät ole keskenään symmetrisessä asemassa:
+$$
+\begin{align}
+&(j+5)-(j+12) = 5-12 = 5 \\
+&(j+12)-(j+5) = 12-5 = 7 \ne 5
+\end{align}
+$$
+Jos siis tiedetään, että kaksi annettua jäännösluokkaa ovat $j+5$ ja $j+12$,
+niin voidaan päätellä, kumpi annetuista jäännösluokista on $j+12$.
+Koska $j+12 = j$, niin juuri löydettiin.
 </p>
 
-</div>
+</div></div><div class="box theorem"><h4>Lause</h4><p>Molliasteikon juuri on yksikäsitteinen.</p>
+
+<div class="box proof"><h4>Todistus</h4><p>Koska $j\molli = (j+3)\duuri$,
+niin annetusta $j$-molliasteikkojoukosta voidaan edellisen lauseen mukaan päätellä $j+3$.
+Tästä on helppo laskea $j$.
+</p>
+
+</div></div></div>
 </body>
 </html>

@@ -19,6 +19,9 @@ mathjax_config = r'''
                 epsi: '\\varepsilon',
                 duuri: '\\text{-duuri}',
                 molli: '\\text{-molli}',
+                duuripenta: '\\text{-duuripenta}',
+                mollipenta: '\\text{-mollipenta}',
+                blues: '\\text{-blues}',
             }
         }
     };

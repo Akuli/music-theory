@@ -297,6 +297,7 @@ definition:
     $$
     j\molli = \{ j, j+2, j+3, j+5, j+7, j+8, j+10 \}.
     $$
+    Jäännösluokkaa $j$ sanotaan asteikon **juureksi**.
 
 example:
     C-duuriasteikko on
@@ -341,3 +342,48 @@ theorem:
 Esimerkiksi C-duurissa on samat äänet kuin A-mollissa.
 Ne ovat eri järjestyksessä, mutta se ei haittaa, koska kyseessä on joukkojen yhtäsuuruus
 ja joukoissa järjestyksellä ei ole merkitystä.
+
+Tällaisia yllättäviä yhtäsuuruuksia ei kuitenkaan saada
+kahdella duuriasteikolla tai kahdella molliasteikolla.
+Tämä tuntuu muusikkokokemuksen perusteella selvältä,
+mutta täsmällisestä todistuksesta tulee helposti matemaattista kikkailua.
+
+theorem:
+    Duuriasteikon juuri on yksikäsitteinen,
+    eli jos $j_1$ ja $j_2$ ovat eri jäännösluokkia ($j_1,j_2 \in \mathbb{Z}_{12}$ ja $j_1 \ne j_2$),
+    niin $j_1\duuri \ne j_2\duuri$.
+
+    proof:
+        Asteikosta ei voi ottaa pienintä alkiota,
+        koska jäännösluokille ei voi määritellä järkevästi toimivaa suuruusvertailua:
+        tuntuisi luontevalta sanoa vaikkapa $j < j+5$ ja $j+5 < j+12$,
+        mutta tämä olisi ristiriita sillä $j=j+12$.
+        Ideana on bongata asteikosta peräkkäiset äänet (kahdessa paikassa)
+        ja valita niistä toinen.
+
+        Tehdään vastaoletus, että $j_1 \ne j_2$ mutta $j_1\duuri = j_2\duuri$.
+        Merkitään
+        $$
+        f(S) = \{ x \in \mathbb{Z}_{12} ~|~ x,x+1,x+7 \in S \},
+        $$
+        missä $S \subseteq \mathbb{Z}_{12}$.
+        Ainoat peräkkäiset alkiot duuriasteikossa ovat $j+4,j+5$ ja $j+11,j+12$.
+        Koska
+        $$
+        j+4+7=j+11 \in j\duuri \quad \text{ja} \quad j+11+7 = j+18 = j+6 \notin j\duuri,
+        $$
+        niin $f(j\duuri) = \{ j+4 \}$. Nyt saadaan
+        $$
+        \{ j_1+4 \} = f(j_1\duuri) = f(j_2\duuri) = \{ j_2+4 \},
+        $$
+        josta seuraa ristiriita $j_1 = j_2$.
+
+theorem:
+    Molliasteikon juuri on yksikäsitteinen.
+
+    proof:
+        Olkoot $j_1$ ja $j_2$ eri juuria.
+        Koska $j_1+3 \ne j_2+3$, niin edellisellä lauseella saadaan
+        $$
+        j_1\molli = (j_1+3)\duuri \ne (j_2+3)\duuri = j_2\molli.
+        $$

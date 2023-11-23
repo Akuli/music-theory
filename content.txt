@@ -286,6 +286,184 @@ example:
         [C] [C] [C] [E] [D] [D] [D] [F] [E] [E] [D] [D] [C].
 
 
+## Äänien löytäminen kitaran otelaudalta
+
+Yritän kirjoittaa teorian niin, että lukijan ei tarvitse osata soittaa yhtäkään soitinta.
+Jos kitaran soittaminen ei kiinnosta, niin tämän osan voi skipata.
+Jos et ole ikinä soittanut kitaraa, tämä osa kannattaa skipata.
+
+Usein sanotaan, että pitää opetella ulkoa,
+minkä niminen ääni tulee mistäkin otelaudan kohdasta,
+eli käytännössä opetella tällainen kuva:
+
+python:
+    import base64
+    with open('fretboard.png', 'rb') as file:
+        png = file.read()
+    b64 = str(base64.b64encode(png), 'ascii')
+    yield f'<img src="data:image/png;base64,{b64}" style="max-width: 100%" />'
+
+<small>Kuva on otettu [täältä](https://www.modernguitarhub.com/guitar-fretboard-notes-chart/).</small>
+
+Tämän osan tarkoitus on näyttää, ettei kuvaa tarvitse opetella ulkoa,
+eikä äänten nimiä kannata edes ajatella ensimmäisen äänen löytämisen jälkeen.
+Käyn läpi esimerkkinä, miten kitaralla soitetaan Ukko Nooa C:stä,
+mutta samalla menetelmällä voi soittaa minkä tahansa melodian mistä tahansa sävellajista.
+
+Ehkä ensin olisi hyvä selittää, mitä yllä olevassa kuvassa tapahtuu.
+Siinä oletetaan, että kitarassa on 6 kieltä, ja ne on viritetty tavalliseen tapaan:
+ilman sormella painamista (eli vapaana) kielistä lähtee äänet [E2], [A2], [D3], [G3], [B3] ja [E4].
+Tässä siis kielten väliset intervallit ovat 5,5,5,4,5:
+
+* A-kieli = ala-E-kieli + 5
+* D-kieli = A-kieli + 5
+* G-kieli = D-kieli + 5
+* B-kieli = G-kieli + 4
+* ylä-E-kieli = B-kieli + 5
+
+Kieliin viitataan yleensä ilman numeroa, esim. G-kieli,
+mutta koska E-kieliä on kaksi, niin niitä sanotaan
+ala-E-kieleksi ([E2]) ja ylä-E-kieleksi ([E4]).
+Nimet viittaavat äänenkorkeuksiin eivätkä kielien sijaintiin:
+ylä-E on tavallisessa soittoasennossa lähimpänä huoneen lattiaa ja ala-E lähimpänä kattoa.
+
+Kun kieltä painetaan nauhan $n \in \{1,2,3,\dots\}$ vierestä
+(eli siitä paikasta, jossa kuvan alalaitaan on merkitty $n$),
+vaapaana soivan äänen $v \in \{E_2,A_2,D_3,G_3,B_3,E_4\}$ sijaan soi ääni $v+n$.
+Esimerkiksi G-kielen nauhalta $n=7$ löytyy ääni [G3]${} + 7 =$ [D4].
+Kuvassa siihen on merkitty D.
+
+Ukko Nooan ensimmäinen ääni on sävellaji $s$,
+ja halusimme soittaa Ukko Nooan C:ssä eli $s \in C$.
+Esimerkiksi G-kielen viidenneltä nauhalta tulee C, koska $C=G+5$.
+Saman näkisi toki kuvastakin, ja tässä stepissä auttaa,
+jos otelaudan muistaa ainakin osittain.
+Monessa muussakin paikassa on C,
+ja niistä voi valita periaatteessa minkä tahansa.
+Käytännössä kannattaa valita sellainen otelaudan paikka,
+että siitä on helppo soittaa, ja soitto kuulostaa hyvältä muiden soittimien kanssa.
+
+**Tässä vaiheessa kannattaa unohtaa yllä oleva kuva kokonaan.**
+Sitä tarvittiin vain alkuäänen $s$ löytämiseen.
+Nyt oleellista on, että se on jossakin, aivan sama missä.
+
+center:
+    <pre>
+    Ylä-E-kieli -------------------
+        B-kieli -------------------
+        G-kieli ----------(s)------
+        D-kieli -------------------
+        A-kieli -------------------
+    Ala-E-kieli -------------------
+    </pre>
+
+Edellisten esimerkkien mukaan Ukko Nooan äänet ovat
+$$
+\begin{align}
+&s,~ s,~ s,~ s+4, \\
+& s+2,~ s+2,~ s+2,~ s+5, \\
+&s+4,~ s+4,~ s+2,~ s+2,~ s.
+\end{align}
+$$
+Seuraava ääni $s+4$ löytyisi samalta kieleltä neljän nauhan päästä:
+
+center:
+    <pre>
+    Ylä-E-kieli -------------------
+        B-kieli -------------------
+        G-kieli ----------(s)-------------------(s+4)
+        D-kieli -------------------
+        A-kieli -------------------
+    Ala-E-kieli -------------------
+    </pre>
+
+Tämä vaatisi käytännössä käden siirtämistä.
+Ukko Nooan soittaminen onnistuisi niinkin,
+mutta käden siirtäminen ei auta,
+jos pitää esimerkiksi soittaa nopeasti tai monta ääntä samaan aikaan.
+
+theorem:
+    Olkoon $k$ äänenkorkeus, joka tulee jostakin paikasta kitaran otelautaa.
+    Jos kyseinen paikka ei ole kaikkein ylimmällä kielellä,
+    niin seuraavaksi ylemmältä kieleltä samalta nauhalta tulee ääni
+    $$
+    \begin{cases}
+    k+4 & \text{G-kieleltä B-kielelle siirryttäessä} \\
+    k+5 & \text{kaikissa muissa tapauksissa}.
+    \end{cases}
+    $$
+    Jos kyseinen paikka ei ole kaikkein alimmalla kielellä,
+    niin seuraavaksi alemmalta kieleltä samalta nauhalta tulee
+    $$
+    \begin{cases}
+    k-4 & \text{B-kieleltä G-kielelle siirryttäessä} \\
+    k-5 & \text{kaikissa muissa tapauksissa}.
+    \end{cases}
+    $$
+
+    proof:
+        Osoitetaan, että uudelta kieleltä saatu ääni on $k\pm\delta$,
+        missä $\delta \in \{4,5\}$ on kielten korkeusero,
+        ja $\pm$ on plus ylöspäin mentäessä ja miinus alaspäin mentäessä.
+        Esimerkiksi G-kieleltä D-kielelle siirryttäessä $\pm\delta = -5$.
+
+        Olkoon $n$ nauha, jonka kohdalta molempia kieliä painetaan.
+        Alkuperäinen kieli tuottaisi vapaana soitettuna äänen $k-n$.
+        Koska kielten korkeusero on $\delta$,
+        niin uusi kieli tuottaisi vapaana soitettuna äänen $k-n \pm \delta$.
+        Kun uutta kieltä painetaan nauhalta $n$, saadaan $n$ puolisävelaskelta vapaata korkeampi ääni
+        $$
+        (k-n\pm\delta) + n = k\pm\delta.
+        $$
+
+Seuraava ääni $s+4$ löytyy siis kätevästi samalta nauhalta B-kieleltä:
+
+center:
+    <pre>
+    Ylä-E-kieli --------------------------
+        B-kieli ---------(s+4)------------
+        G-kieli ----------(s)-------------
+        D-kieli --------------------------
+        A-kieli --------------------------
+    Ala-E-kieli --------------------------
+    </pre>
+
+Äänen $s+2$ saisi nyt menemällä G-kieltä pitkin kaksi nauhaa oikealle,
+tai muodossa $s+4-2$ menemällä B-kieltä pitkin kaksi nauhaa vasemmalle.
+Käytännössä oikealle liikkuminen on helpompaa,
+koska $s$ ja $s+4$ tulee helposti soitettua etusormella,
+jolloin nimetön on jo valmiiksi suunnilleen oikeassa paikassa.
+
+center:
+    <pre>
+    Ylä-E-kieli --------------------------
+        B-kieli ---------(s+4)------------
+        G-kieli ----------(s)-------(s+2)-
+        D-kieli --------------------------
+        A-kieli --------------------------
+    Ala-E-kieli --------------------------
+    </pre>
+
+Ainoa jäljellä oleva ääni on $s+5$.
+Edellisen lauseen mukaan $s+6$ olisi B-kielellä samassa paikassa kuin $s+2$ on G-kielellä,
+jolloin saamme B-kielelle äänet $s+4$ ja $s+6$.
+Näiden puolessa välissä on $s+5$.
+
+center:
+    <pre>
+    Ylä-E-kieli --------------------------
+        B-kieli ---------(s+4)-(s+5)------
+        G-kieli ----------(s)-------(s+2)-
+        D-kieli --------------------------
+        A-kieli --------------------------
+    Ala-E-kieli --------------------------
+    </pre>
+
+Nämä asettuvat myös mukavasti käden muotoon.
+Äänen $s+5$ voi soittaa keskisormella, $s+2$ nimettömällä
+ja muut etusormella.
+
+
 ## Duuriasteikko ja molliasteikko
 
 definition:
